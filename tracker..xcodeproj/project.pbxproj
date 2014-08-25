@@ -39,6 +39,20 @@
 		8D54670E19ABA7D900BA9818 /* LastMonthPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54670D19ABA7D900BA9818 /* LastMonthPainView.m */; };
 		8D54671119ABA9BC00BA9818 /* TodayFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54671019ABA9BC00BA9818 /* TodayFlowView.m */; };
 		8D54671419ABA9CA00BA9818 /* TodayPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54671319ABA9CA00BA9818 /* TodayPainView.m */; };
+		8D54671719ABB04800BA9818 /* SetTodaysFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54671619ABB04800BA9818 /* SetTodaysFlowView.m */; };
+		8D54671F19ABB3B800BA9818 /* heavyflowbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671919ABB3B800BA9818 /* heavyflowbutton.png */; };
+		8D54672019ABB3B800BA9818 /* heavyflowbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671A19ABB3B800BA9818 /* heavyflowbutton@2x.png */; };
+		8D54672119ABB3B800BA9818 /* lightflowbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671B19ABB3B800BA9818 /* lightflowbutton.png */; };
+		8D54672219ABB3B800BA9818 /* lightflowbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671C19ABB3B800BA9818 /* lightflowbutton@2x.png */; };
+		8D54672319ABB3B800BA9818 /* mediumflowbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671D19ABB3B800BA9818 /* mediumflowbutton.png */; };
+		8D54672419ABB3B800BA9818 /* mediumflowbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54671E19ABB3B800BA9818 /* mediumflowbutton@2x.png */; };
+		8D54672C19ABB9F500BA9818 /* highpainbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672619ABB9F500BA9818 /* highpainbutton.png */; };
+		8D54672D19ABB9F500BA9818 /* highpainbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672719ABB9F500BA9818 /* highpainbutton@2x.png */; };
+		8D54672E19ABB9F500BA9818 /* lowpainbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672819ABB9F500BA9818 /* lowpainbutton.png */; };
+		8D54672F19ABB9F500BA9818 /* lowpainbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672919ABB9F500BA9818 /* lowpainbutton@2x.png */; };
+		8D54673019ABB9F500BA9818 /* mediumpainbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672A19ABB9F500BA9818 /* mediumpainbutton.png */; };
+		8D54673119ABB9F500BA9818 /* mediumpainbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54672B19ABB9F500BA9818 /* mediumpainbutton@2x.png */; };
+		8D54673419ABBA0800BA9818 /* SetTodaysPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54673319ABBA0800BA9818 /* SetTodaysPainView.m */; };
 		8DE53B6B19AAE16100B10508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6A19AAE16100B10508 /* Foundation.framework */; };
 		8DE53B6D19AAE16100B10508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */; };
 		8DE53B6F19AAE16100B10508 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6E19AAE16100B10508 /* UIKit.framework */; };
@@ -125,6 +139,22 @@
 		8D54671019ABA9BC00BA9818 /* TodayFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodayFlowView.m; path = Views/TodayFlowView.m; sourceTree = "<group>"; };
 		8D54671219ABA9CA00BA9818 /* TodayPainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayPainView.h; sourceTree = "<group>"; };
 		8D54671319ABA9CA00BA9818 /* TodayPainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayPainView.m; sourceTree = "<group>"; };
+		8D54671519ABB04800BA9818 /* SetTodaysFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTodaysFlowView.h; path = Views/SetTodaysFlowView.h; sourceTree = "<group>"; };
+		8D54671619ABB04800BA9818 /* SetTodaysFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetTodaysFlowView.m; path = Views/SetTodaysFlowView.m; sourceTree = "<group>"; };
+		8D54671919ABB3B800BA9818 /* heavyflowbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heavyflowbutton.png; sourceTree = "<group>"; };
+		8D54671A19ABB3B800BA9818 /* heavyflowbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heavyflowbutton@2x.png"; sourceTree = "<group>"; };
+		8D54671B19ABB3B800BA9818 /* lightflowbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightflowbutton.png; sourceTree = "<group>"; };
+		8D54671C19ABB3B800BA9818 /* lightflowbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightflowbutton@2x.png"; sourceTree = "<group>"; };
+		8D54671D19ABB3B800BA9818 /* mediumflowbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediumflowbutton.png; sourceTree = "<group>"; };
+		8D54671E19ABB3B800BA9818 /* mediumflowbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mediumflowbutton@2x.png"; sourceTree = "<group>"; };
+		8D54672619ABB9F500BA9818 /* highpainbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highpainbutton.png; sourceTree = "<group>"; };
+		8D54672719ABB9F500BA9818 /* highpainbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "highpainbutton@2x.png"; sourceTree = "<group>"; };
+		8D54672819ABB9F500BA9818 /* lowpainbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowpainbutton.png; sourceTree = "<group>"; };
+		8D54672919ABB9F500BA9818 /* lowpainbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lowpainbutton@2x.png"; sourceTree = "<group>"; };
+		8D54672A19ABB9F500BA9818 /* mediumpainbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mediumpainbutton.png; sourceTree = "<group>"; };
+		8D54672B19ABB9F500BA9818 /* mediumpainbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mediumpainbutton@2x.png"; sourceTree = "<group>"; };
+		8D54673219ABBA0800BA9818 /* SetTodaysPainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTodaysPainView.h; path = Views/SetTodaysPainView.h; sourceTree = "<group>"; };
+		8D54673319ABBA0800BA9818 /* SetTodaysPainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetTodaysPainView.m; path = Views/SetTodaysPainView.m; sourceTree = "<group>"; };
 		8DE53B6719AAE16100B10508 /* tracker..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tracker..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE53B6A19AAE16100B10508 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -237,6 +267,32 @@
 				8D5466DF19AB9F0A00BA9818 /* dialog_ok@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		8D54671819ABB3B800BA9818 /* todayflowview */ = {
+			isa = PBXGroup;
+			children = (
+				8D54671919ABB3B800BA9818 /* heavyflowbutton.png */,
+				8D54671A19ABB3B800BA9818 /* heavyflowbutton@2x.png */,
+				8D54671B19ABB3B800BA9818 /* lightflowbutton.png */,
+				8D54671C19ABB3B800BA9818 /* lightflowbutton@2x.png */,
+				8D54671D19ABB3B800BA9818 /* mediumflowbutton.png */,
+				8D54671E19ABB3B800BA9818 /* mediumflowbutton@2x.png */,
+			);
+			path = todayflowview;
+			sourceTree = "<group>";
+		};
+		8D54672519ABB9F500BA9818 /* todaypainview */ = {
+			isa = PBXGroup;
+			children = (
+				8D54672619ABB9F500BA9818 /* highpainbutton.png */,
+				8D54672719ABB9F500BA9818 /* highpainbutton@2x.png */,
+				8D54672819ABB9F500BA9818 /* lowpainbutton.png */,
+				8D54672919ABB9F500BA9818 /* lowpainbutton@2x.png */,
+				8D54672A19ABB9F500BA9818 /* mediumpainbutton.png */,
+				8D54672B19ABB9F500BA9818 /* mediumpainbutton@2x.png */,
+			);
+			path = todaypainview;
 			sourceTree = "<group>";
 		};
 		8DE53B5E19AAE16100B10508 = {
@@ -366,6 +422,10 @@
 				8D54671019ABA9BC00BA9818 /* TodayFlowView.m */,
 				8D54671219ABA9CA00BA9818 /* TodayPainView.h */,
 				8D54671319ABA9CA00BA9818 /* TodayPainView.m */,
+				8D54671519ABB04800BA9818 /* SetTodaysFlowView.h */,
+				8D54671619ABB04800BA9818 /* SetTodaysFlowView.m */,
+				8D54673219ABBA0800BA9818 /* SetTodaysPainView.h */,
+				8D54673319ABBA0800BA9818 /* SetTodaysPainView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -373,6 +433,8 @@
 		8DE53BAF19AAF06D00B10508 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8D54672519ABB9F500BA9818 /* todaypainview */,
+				8D54671819ABB3B800BA9818 /* todayflowview */,
 				8DE53BB019AAF06D00B10508 /* homescreen */,
 				8DE53BB319AAF06D00B10508 /* navbar */,
 			);
@@ -493,8 +555,11 @@
 				8D5466EB19AB9F0A00BA9818 /* calendar_clear-disabled@2x.png in Resources */,
 				8D5466FD19AB9F0A00BA9818 /* THDateDay.xib in Resources */,
 				8DE53BBE19AAF06D00B10508 /* nav-logo.png in Resources */,
+				8D54672219ABB3B800BA9818 /* lightflowbutton@2x.png in Resources */,
 				8DE53B7519AAE16100B10508 /* InfoPlist.strings in Resources */,
+				8D54673119ABB9F500BA9818 /* mediumpainbutton@2x.png in Resources */,
 				8DE53BCB19AAF7F500B10508 /* eggicon.png in Resources */,
+				8D54672119ABB3B800BA9818 /* lightflowbutton.png in Resources */,
 				8D5466F719AB9F0A00BA9818 /* dialog_clear@2x.png in Resources */,
 				8D5466F019AB9F0A00BA9818 /* calendar_ok-disabled.png in Resources */,
 				8DE53BBD19AAF06D00B10508 /* hamburgermenu@2x.png in Resources */,
@@ -508,13 +573,20 @@
 				8D5466EF19AB9F0A00BA9818 /* calendar_littledot@2x.png in Resources */,
 				8D5466ED19AB9F0A00BA9818 /* calendar_littledot-disabled@2x.png in Resources */,
 				8DE53B7D19AAE16100B10508 /* Images.xcassets in Resources */,
+				8D54673019ABB9F500BA9818 /* mediumpainbutton.png in Resources */,
 				8D5466F319AB9F0A00BA9818 /* dialog_cancel@2x.png in Resources */,
+				8D54672419ABB3B800BA9818 /* mediumflowbutton@2x.png in Resources */,
+				8D54672D19ABB9F500BA9818 /* highpainbutton@2x.png in Resources */,
 				8D5466EE19AB9F0A00BA9818 /* calendar_littledot.png in Resources */,
 				8DE53BBB19AAF06D00B10508 /* clockicon@2x.png in Resources */,
 				8D5466FA19AB9F0A00BA9818 /* dialog_ok.png in Resources */,
+				8D54671F19ABB3B800BA9818 /* heavyflowbutton.png in Resources */,
 				8D5466FF19AB9F0A00BA9818 /* THDatePickerViewController.xib in Resources */,
+				8D54672E19ABB9F500BA9818 /* lowpainbutton.png in Resources */,
+				8D54672F19ABB9F500BA9818 /* lowpainbutton@2x.png in Resources */,
 				8D5466F119AB9F0A00BA9818 /* calendar_ok-disabled@2x.png in Resources */,
 				8DE53BD019AAF7F500B10508 /* raindropicon@2x.png in Resources */,
+				8D54672319ABB3B800BA9818 /* mediumflowbutton.png in Resources */,
 				8D5466EC19AB9F0A00BA9818 /* calendar_littledot-disabled.png in Resources */,
 				8D5466F519AB9F0A00BA9818 /* dialog_clear-disabled@2x.png in Resources */,
 				8DE53BC119AAF06D00B10508 /* personicon@2x.png in Resources */,
@@ -523,9 +595,11 @@
 				8D5466FB19AB9F0A00BA9818 /* dialog_ok@2x.png in Resources */,
 				8DE53BCE19AAF7F500B10508 /* lightningicon@2x.png in Resources */,
 				8D5466E919AB9F0A00BA9818 /* arrow_right@2x.png in Resources */,
+				8D54672019ABB3B800BA9818 /* heavyflowbutton@2x.png in Resources */,
 				8D5466F419AB9F0A00BA9818 /* dialog_clear-disabled.png in Resources */,
 				8D5466F219AB9F0A00BA9818 /* dialog_cancel.png in Resources */,
 				8DE53BBF19AAF06D00B10508 /* nav-logo@2x.png in Resources */,
+				8D54672C19ABB9F500BA9818 /* highpainbutton.png in Resources */,
 				8D5466F919AB9F0A00BA9818 /* dialog_ok-disabled@2x.png in Resources */,
 				8DE53BC019AAF06D00B10508 /* personicon.png in Resources */,
 				8D5466E819AB9F0A00BA9818 /* arrow_right.png in Resources */,
@@ -549,6 +623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DE53BA419AAE74E00B10508 /* Colors.m in Sources */,
+				8D54673419ABBA0800BA9818 /* SetTodaysPainView.m in Sources */,
 				8D54670219ABA12000BA9818 /* UIViewController+KNSemiModal.m in Sources */,
 				8D54670819ABA47B00BA9818 /* RegularCellView.m in Sources */,
 				8DE53BA819AAEC5100B10508 /* StartEndPeriod.m in Sources */,
@@ -561,6 +636,7 @@
 				8D54670B19ABA5C700BA9818 /* LastMonthFlow.m in Sources */,
 				8D54670E19ABA7D900BA9818 /* LastMonthPainView.m in Sources */,
 				8DE53BAE19AAEEA200B10508 /* TimeLeftView.m in Sources */,
+				8D54671719ABB04800BA9818 /* SetTodaysFlowView.m in Sources */,
 				8DE53BA019AAE29800B10508 /* KLCPopup.m in Sources */,
 				8D54671419ABA9CA00BA9818 /* TodayPainView.m in Sources */,
 				8D5466FE19AB9F0A00BA9818 /* THDatePickerViewController.m in Sources */,

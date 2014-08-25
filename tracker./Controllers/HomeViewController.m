@@ -16,6 +16,8 @@
 #import "LastMonthPainView.h"
 #import "TodayFlowView.h"
 #import "TodayPainView.h"
+#import "SetTodaysFlowView.h"
+#import "SetTodaysPainView.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -29,6 +31,8 @@ static const int cellHeight = 68;
     FertilizationView *fertilizationView;
     TodayFlowView *todayFlowView;
     TodayPainView *todayPainView;
+    SetTodaysFlowView *setTodaysFlowView;
+    SetTodaysPainView *setTodaysPainView;
     UILabel *status;
     BOOL periodStarted;
 }
@@ -107,6 +111,8 @@ static const int cellHeight = 68;
 {
     todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
     todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
+    setTodaysFlowView = [[SetTodaysFlowView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
+    setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
 }
 
 - (void)setupLastMonthViews
@@ -212,6 +218,7 @@ static const int cellHeight = 68;
         }
         else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+            
         }
         
         if (indexPath.row == 0) {
@@ -271,13 +278,23 @@ static const int cellHeight = 68;
                                                                       KNSemiModalOptionKeys.shadowOpacity     : @(0.3),
                                                                       }];
     }
-    else if (indexPath.row == 2){
-//        KLCPopup* popup = [KLCPopup popupWithContentView:statusViewPopup showType:KLCPopupShowTypeGrowIn dismissType:KLCPopupDismissTypeShrinkOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
-//        
-//        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
-//                                                   KLCPopupVerticalLayoutBelowNav);
-//        
-//        [popup showWithLayout:layout];
+    // launches todays flow popup
+    else if (indexPath.row == 6){
+        KLCPopup* popup = [KLCPopup popupWithContentView:setTodaysFlowView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        
+        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
+                                                   KLCPopupVerticalLayoutBottom);
+        
+        [popup showWithLayout:layout];
+    }
+    // launches todays pain popup
+    else if (indexPath.row == 7) {
+        KLCPopup* popup = [KLCPopup popupWithContentView:setTodaysPainView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        
+        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
+                                                   KLCPopupVerticalLayoutBottom);
+        
+        [popup showWithLayout:layout];
     }
     
 
