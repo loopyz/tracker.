@@ -10,6 +10,8 @@
 #import "HomeViewController.h"
 #import "Colors.h"
 
+#define FORCE_RESET true
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -19,6 +21,15 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    // toggling reset
+    if (FORCE_RESET) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTRHasBeenLaunchedKey];
+    }
+    
+    // set up nsuserdefaults
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kTRHasBeenLaunchedKey]) {
+        [TRUtil resetDefaults];
+    }
     
     HomeViewController *hvc = [[HomeViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:hvc];

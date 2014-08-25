@@ -148,18 +148,21 @@ static const int cellHeight = 68;
     statusView.status.text = @"Tap to start period";
 }
 
-- (void)startPeriodTouched
+- (void)startPeriodTouched:(NSDate *)date
 {
     statusView.status.text = @"Tap to end period";
     statusView.backgroundColor = [Colors endPeriodColor];
     periodStarted = YES;
+    NSLog(@"dat e%@", date);
+    [TRUtil addCurrentPeriod:date];
 }
 
-- (void)endPeriodTouched
+- (void)endPeriodTouched:(NSDate *)date
 {
     statusView.status.text = @"Tap to start period";
     statusView.backgroundColor = [Colors mainColor];
     periodStarted = NO;
+    [TRUtil addPastPeriod:date];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -260,9 +263,8 @@ static const int cellHeight = 68;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        if(!self.datePicker)
-            self.datePicker = [THDatePickerViewController datePicker];
-        self.datePicker.date = self.curDate;
+        self.datePicker = [THDatePickerViewController datePicker];
+        self.datePicker.date = [NSDate date];
         self.datePicker.delegate = self;
         [self.datePicker setAllowClearDate:NO];
         [self.datePicker setAutoCloseOnSelectDate:YES];
@@ -308,8 +310,8 @@ static const int cellHeight = 68;
 -(void)datePickerDonePressed:(THDatePickerViewController *)datePicker{
     self.curDate = datePicker.date;
     if (!periodStarted)
-        [self startPeriodTouched];
-    else [self endPeriodTouched];
+        [self startPeriodTouched:self.curDate];
+    else [self endPeriodTouched:self.curDate];
     //[self.datePicker slideDownAndOut];
     [self dismissSemiModalView];
 }
