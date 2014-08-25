@@ -10,4 +10,6 @@
 
 @interface FertilizationView : UIView
 
+
+- (id)initWithFrame:(CGRect)frame withFertilizationState:(NSUInteger)fertilizationState;
 @end

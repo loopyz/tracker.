@@ -29,4 +29,21 @@
 {
     return [UIColor colorWithRed:147/255.0f green:147/255.0f blue:147/255.0f alpha:1.0f];
 }
+
++ (UIColor *)lightGreen
+{
+    return [UIColor colorWithRed:160/255.0f green:216/255.0f blue:147/255.0f alpha:1.0f];
+}
+
++ (UIColor *)lightOrange
+{
+    return [UIColor colorWithRed:231/255.0f green:179/255.0f blue:122/255.0f alpha:1.0f];
+}
+
++ (UIColor *)lightRed
+{
+    return [UIColor colorWithRed:249/255.0f green:107/255.0f blue:107/255.0f alpha:1.0f];
+}
+
+
 @end

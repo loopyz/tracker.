@@ -11,13 +11,16 @@
 #import "Colors.h"
 #import "StartEndPeriod.h"
 #import "TimeLeftView.h"
+#import "FertilizationView.h"
 
 static const int kStatusViewHeight = 52;
+static const int cellHeight = 68;
 
 @interface HomeViewController () {
     UIColor *bgColor;
     StartEndPeriod *statusView;
     TimeLeftView *timeLeftView;
+    FertilizationView *fertilizationView;
     UILabel *status;
     BOOL periodStarted;
 }
@@ -36,6 +39,7 @@ static const int kStatusViewHeight = 52;
         [self initNavBar];
         [self setupStatusView];
         [self setupTimeLeftView];
+        [self setupFertilizationView];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -44,7 +48,32 @@ static const int kStatusViewHeight = 52;
 
 - (void)initNavBar
 {
+    UIBarButtonItem *lbb = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"searchicon.png"]
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self
+                                                           action:@selector(launchAddGameView)];
     
+    lbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    self.navigationItem.leftBarButtonItem = lbb;
+    
+    // Logo in the center of navigation bar
+    UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 99, 31.5)];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-logo.png"]];
+    titleImageView.frame = CGRectMake(0, 5, titleImageView.frame.size.width/2, titleImageView.frame.size.height/2);
+    [logoView addSubview:titleImageView];
+    self.navigationItem.titleView = logoView;
+    
+    
+    // Right bar button item to launch the categories selection screen.
+    UIBarButtonItem *rbb = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settingsicon.png"]
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self
+                                                           action:@selector(settingsTouched)];
+    
+    rbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    self.navigationItem.rightBarButtonItem = rbb;
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidLoad
@@ -59,9 +88,15 @@ static const int kStatusViewHeight = 52;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setupFertilizationView
+{
+    fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFertilizationState:1];
+    
+}
+
 - (void)setupTimeLeftView
 {
-    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 68) isOnPeriod:YES];
+    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) isOnPeriod:YES];
     [timeLeftView setupCurrentDayOfPeriod:7];
     [timeLeftView setupDaysLeftTillEnd:4];
 }
@@ -98,13 +133,13 @@ static const int kStatusViewHeight = 52;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) return kStatusViewHeight;
-    return 70;
+    return cellHeight;
 }
 
 //for each cell in table
@@ -129,20 +164,23 @@ static const int kStatusViewHeight = 52;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        else if (indexPath.row == 2) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
         else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
         }
         
-        cell.layer.shadowColor = [[UIColor whiteColor] CGColor];
-        cell.layer.shadowOpacity = 1.0;
-        cell.layer.shadowRadius = 0;
-        cell.layer.shadowOffset = CGSizeMake(0.0, 1.0);
         if (indexPath.row == 0) {
             cell.backgroundColor = [UIColor whiteColor];
             [cell addSubview:statusView];
         }
         else if (indexPath.row  == 1) {
             [cell addSubview:timeLeftView];
+        }
+        else if (indexPath.row == 2) {
+            [cell addSubview:fertilizationView];
         }
         else {
             

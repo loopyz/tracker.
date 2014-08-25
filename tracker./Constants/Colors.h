@@ -18,5 +18,10 @@
 
 + (UIColor *)grayFontColor;
 
++ (UIColor *)lightGreen;
+
++ (UIColor *)lightOrange;
+
++ (UIColor *)lightRed;
 
 @end

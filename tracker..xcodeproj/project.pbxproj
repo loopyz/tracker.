@@ -156,6 +156,7 @@
 		8DE53B7019AAE16100B10508 /* tracker. */ = {
 			isa = PBXGroup;
 			children = (
+				8DE53BD419AAF98700B10508 /* Model */,
 				8DE53BAF19AAF06D00B10508 /* images */,
 				8DE53BA519AAEC3A00B10508 /* Views */,
 				8DE53BA119AAE73600B10508 /* Constants */,
@@ -275,6 +276,13 @@
 				8DE53BB919AAF06D00B10508 /* personicon@2x.png */,
 			);
 			path = navbar;
+			sourceTree = "<group>";
+		};
+		8DE53BD419AAF98700B10508 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
