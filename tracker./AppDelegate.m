@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "Colors.h"
 
 @implementation AppDelegate
 
@@ -24,6 +25,9 @@
     self.navigationController = navigationController;
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
+    
+    [[UINavigationBar appearance] setTintColor:[Colors mainColor]];
+
 
     return YES;
 }

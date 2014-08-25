@@ -18,6 +18,7 @@
 #import "TodayPainView.h"
 #import "SetTodaysFlowView.h"
 #import "SetTodaysPainView.h"
+#import "SettingsViewController.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -85,7 +86,9 @@ static const int cellHeight = 68;
 
 - (void)settingsTouched
 {
-    // TODO : LAUNCH SETTINGS PAGE
+    SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:settingsVC animated:YES];
+    
 }
 
 - (void)viewDidLoad
