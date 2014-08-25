@@ -61,17 +61,17 @@
 
 - (void)lightButtonTouched
 {
-    
+    [self.delegate setLightFlow];
 }
 
 - (void)mediumButtonTouched
 {
-    
+    [self.delegate setMediumFlow];
 }
 
 - (void)heavyButtonTouched
 {
-    
+    [self.delegate setHeavyFlow];
 }
 
 @end

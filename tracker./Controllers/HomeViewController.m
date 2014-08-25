@@ -34,6 +34,7 @@ static const int cellHeight = 68;
     SetTodaysFlowView *setTodaysFlowView;
     SetTodaysPainView *setTodaysPainView;
     UILabel *status;
+    KLCPopup* popup;
     BOOL periodStarted;
 }
 @property (nonatomic, retain) NSDate * curDate;
@@ -114,6 +115,7 @@ static const int cellHeight = 68;
     setTodaysFlowView = [[SetTodaysFlowView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView.delegate = self;
+    setTodaysFlowView.delegate = self;
 }
 
 - (void)setupLastMonthViews
@@ -219,6 +221,7 @@ static const int cellHeight = 68;
         }
         else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
         
@@ -281,7 +284,7 @@ static const int cellHeight = 68;
     }
     // launches todays flow popup
     else if (indexPath.row == 6){
-        KLCPopup* popup = [KLCPopup popupWithContentView:setTodaysFlowView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        popup = [KLCPopup popupWithContentView:setTodaysFlowView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:NO];
         
         KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
                                                    KLCPopupVerticalLayoutBottom);
@@ -290,7 +293,7 @@ static const int cellHeight = 68;
     }
     // launches todays pain popup
     else if (indexPath.row == 7) {
-        KLCPopup* popup = [KLCPopup popupWithContentView:setTodaysPainView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
+        popup = [KLCPopup popupWithContentView:setTodaysPainView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:NO];
         
         KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
                                                    KLCPopupVerticalLayoutBottom);
@@ -322,16 +325,39 @@ static const int cellHeight = 68;
 - (void)setHighPain
 {
     todayPainView.selectionLabel.text = @"High";
+    [popup dismiss:YES];
 }
 
 - (void)setLowPain
 {
     todayPainView.selectionLabel.text = @"Low";
+    [popup dismiss:YES];
 }
 
 - (void)setMediumPain
 {
     todayPainView.selectionLabel.text = @"Medium";
+    [popup dismiss:YES];
+}
+
+#pragma mark - SetTodaysFlowView delegate methods
+
+- (void)setLightFlow
+{
+    todayFlowView.selectionLabel.text = @"Light";
+    [popup dismiss:YES];
+}
+
+- (void)setMediumFlow
+{
+   todayFlowView.selectionLabel.text = @"Medium";
+    [popup dismiss:YES];
+}
+
+- (void)setHeavyFlow
+{
+    todayFlowView.selectionLabel.text = @"Heavy";
+    [popup dismiss:YES];
 }
 
 

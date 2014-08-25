@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol  SetTodaysFlowView;
+
 @interface SetTodaysFlowView : UIView
+
+@property (nonatomic, weak) id<SetTodaysFlowView> delegate;
+
+@end
+
+@protocol SetTodaysFlowView
+
+@required
+-(void)setLightFlow;
+-(void)setMediumFlow;
+-(void)setHeavyFlow;
 
 @end
