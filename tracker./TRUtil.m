@@ -55,8 +55,13 @@
 
     // clear previous and current periods
     [defaults removeObjectForKey:kTRCurrentPeriodStartDateKey];
-    [defaults removeObjectForKey:kTRPreviousPeriodEndDateKey];
+    [defaults removeObjectForKey:kTRCurrentPeriodFlowKey];
+    [defaults removeObjectForKey:kTRCurrentPeriodPainKey];
     
+    [defaults removeObjectForKey:kTRPreviousPeriodEndDateKey];
+    [defaults removeObjectForKey:kTRPreviousPeriodFlowKey];
+    [defaults removeObjectForKey:kTRPreviousPeriodPainKey];
+
     // remove alarms
     NSData *startPeriodAlarmData = [defaults objectForKey:kTRStartPeriodAlarmDataKey];
     [self removeLocalNotificationFromData:startPeriodAlarmData];
@@ -120,10 +125,14 @@
     [defaults setInteger:periodDuration forKey:kTRPeriodDurationKey];
     [defaults setInteger:numPeriods forKey:kTRNumPeriodsKey];
     
-    // reset current start date, store current end date
-    [defaults removeObjectForKey:kTRCurrentPeriodStartDateKey];
+    //store current period into previous period, reset current period
     [defaults setObject:endDate forKey:kTRPreviousPeriodEndDateKey];
+    [defaults setObject:[defaults objectForKey:kTRCurrentPeriodFlowKey] forKey:kTRPreviousPeriodFlowKey];
+    [defaults setObject:[defaults objectForKey:kTRCurrentPeriodPainKey] forKey:kTRPreviousPeriodPainKey];
     
+    [defaults removeObjectForKey:kTRCurrentPeriodStartDateKey];
+    [defaults removeObjectForKey:kTRCurrentPeriodFlowKey];
+    [defaults removeObjectForKey:kTRCurrentPeriodPainKey];
     // remove old alarm in case
     NSData *startPeriodAlarmData = [defaults objectForKey:kTRStartPeriodAlarmDataKey];
     [self removeLocalNotificationFromData:startPeriodAlarmData];
@@ -152,6 +161,22 @@
         startPeriodAlarmData = [NSKeyedArchiver archivedDataWithRootObject:localNotif];
         [defaults setObject:startPeriodAlarmData forKey:kTRStartPeriodAlarmDataKey];
     }
+    [defaults synchronize];
+}
+
++ (void)setCurrentPeriodFlow:(NSString *)flow
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:flow forKey:kTRCurrentPeriodFlowKey];
+    [defaults synchronize];
+}
+
++ (void)setCurrentPeriodPain:(NSString *)pain
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:pain forKey:kTRCurrentPeriodPainKey];
     [defaults synchronize];
 }
 

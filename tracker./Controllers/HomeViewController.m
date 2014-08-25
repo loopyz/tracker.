@@ -48,13 +48,31 @@ static const int cellHeight = 68;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        // get period started info
-        periodStarted = NO;
+        
+        // get and process data from nsuserdefaults
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        periodStarted = ([defaults objectForKey:kTRPreviousPeriodEndDateKey] != nil);
+        
         [self initNavBar];
         [self setupStatusView];
-        [self setupTimeLeftView];
-        [self setupFertilizationView];
-        [self setupLastMonthViews];
+        
+        NSInteger currentPeriodDuration = [defaults integerForKey:kTRNextPeriodDurationKey];
+        NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
+        NSInteger currentPeriodTimeLeft = currentPeriodDuration;
+        NSInteger currentPeriodCurrentDay = 0;
+        if (startDate != nil) {
+            currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:[startDate dateByAddingTimeInterval:60*60*24*currentPeriodDuration]];
+            currentPeriodCurrentDay = currentPeriodDuration - currentPeriodTimeLeft;
+        }
+        [self setupTimeLeftView:currentPeriodCurrentDay remaining:currentPeriodTimeLeft];
+        
+        // TODO: figure out fertility schedules
+        [self setupFertilizationView:1];
+        
+        NSString *previousPeriodFlow = [defaults stringForKey:kTRPreviousPeriodFlowKey];
+        NSString *previousPeriodPain = [defaults stringForKey:kTRPreviousPeriodPainKey];
+        [self setupLastMonthViews:previousPeriodFlow pain:previousPeriodPain];
+
         [self setupTodaysViews];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -114,24 +132,33 @@ static const int cellHeight = 68;
     setTodaysFlowView.delegate = self;
 }
 
-- (void)setupLastMonthViews
+- (void)setupLastMonthViews:(NSString *)flow pain:(NSString *)pain
 {
-    // TODO: GET ACTUAL PAIN
-    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:@"Light"];
-    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withPain:@"High"];
+    // todo: deal w/ user's first time using the app (there won't be any last month data)
+    if (flow == nil) {
+        flow = kTRFlowLight;
+    }
+    
+    if (pain == nil) {
+        pain = kTRPainHigh;
+    }
+    
+    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:flow];
+    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withPain:pain];
 }
 
-- (void)setupFertilizationView
+- (void)setupFertilizationView:(NSInteger)fertilizationState
 {
-    fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFertilizationState:1];
+    fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFertilizationState:fertilizationState];
     
 }
 
-- (void)setupTimeLeftView
+- (void)setupTimeLeftView:(NSInteger)currentDay remaining:(NSInteger)remaining
 {
-    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) isOnPeriod:YES];
-    [timeLeftView setupCurrentDayOfPeriod:7];
-    [timeLeftView setupDaysLeftTillEnd:4];
+    // todo: if currentDay == 0 (i.e. period hasn't started yet)
+    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) isOnPeriod:periodStarted];
+    [timeLeftView setupCurrentDayOfPeriod:currentDay];
+    [timeLeftView setupDaysLeftTillEnd:remaining];
 }
 
 - (void)setupStatusView

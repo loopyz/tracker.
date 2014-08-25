@@ -16,6 +16,12 @@ extern NSString *const kTRHasBeenLaunchedKey;
 #pragma mark - default period data
 extern const int kTRDefaultPeriodDuration;
 extern const int kTRDefaultNoPeriodDuration;
+extern NSString *const kTRPainLow;
+extern NSString *const kTRPainMedium;
+extern NSString *const kTRPainHigh;
+extern NSString *const kTRFlowLight;
+extern NSString *const kTRFlowMedium;
+extern NSString *const kTRFlowHeavy;
 
 #pragma mark - record of past periods
 extern NSString *const kTRNumPeriodsKey;
@@ -24,9 +30,13 @@ extern NSString *const kTRNoPeriodDurationKey;
 
 #pragma mark - previous period
 extern NSString *const kTRPreviousPeriodEndDateKey;
+extern NSString *const kTRPreviousPeriodFlowKey;
+extern NSString *const kTRPreviousPeriodPainKey;
 
 #pragma mark - current period
 extern NSString *const kTRCurrentPeriodStartDateKey;
+extern NSString *const kTRCurrentPeriodFlowKey;
+extern NSString *const kTRCurrentPeriodPainKey;
 
 #pragma mark - next period predictions
 extern NSString *const kTRNextPeriodStartDateKey;

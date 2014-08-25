@@ -11,7 +11,13 @@
 @interface TRUtil : NSObject
 
 + (void)resetDefaults;
+
 + (void)addCurrentPeriod:(NSDate *)startDate;
 + (void)addPastPeriod:(NSDate *)endDate;
+
++ (void)setCurrentPeriodFlow:(NSString *)flow;
++ (void)setCurrentPeriodPain:(NSString *)pain;
+
++ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 @end
