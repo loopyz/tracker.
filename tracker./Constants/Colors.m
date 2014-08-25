@@ -45,5 +45,24 @@
     return [UIColor colorWithRed:249/255.0f green:107/255.0f blue:107/255.0f alpha:1.0f];
 }
 
++ (UIColor *)lightBlue
+{
+    return [UIColor colorWithRed:104/255.0f green:217/255.0f blue:218/255.0f alpha:1.0f];
+}
+
++ (UIColor *)darkRed
+{
+    return [UIColor colorWithRed:172/255.0f green:78/255.0f blue:78/255.0f alpha:1.0f];
+}
+
++ (UIColor *)darkBlue
+{
+    return [UIColor colorWithRed:15/255.0f green:149/255.0f blue:149/255.0f alpha:1.0f];
+}
+
++ (UIColor *)navTint
+{
+    return [UIColor colorWithRed:195/255.0f green:195/255.0f blue:195/255.0f alpha:1.0f];
+}
 
 @end

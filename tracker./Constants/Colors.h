@@ -24,4 +24,13 @@
 
 + (UIColor *)lightRed;
 
++ (UIColor *)lightBlue;
+
++ (UIColor *)darkRed;
+
++ (UIColor *)darkBlue;
+
++ (UIColor *)navTint;
+
+
 @end

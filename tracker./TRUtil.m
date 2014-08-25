@@ -67,6 +67,10 @@
     [defaults setBool:NO forKey:kTRStartPeriodAlarmToggleKey];
     [defaults setBool:NO forKey:kTRPillAlarmToggleKey];
     
+    // reset alarm times to 9am
+    [defaults setInteger:9 forKey:kTRStartPeriodAlarmHourKey];
+    [defaults setInteger:9 forKey:kTRPillAlarmHourKey];
+    
     [defaults synchronize];
 }
 

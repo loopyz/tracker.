@@ -12,6 +12,12 @@
 #import "StartEndPeriod.h"
 #import "TimeLeftView.h"
 #import "FertilizationView.h"
+#import "LastMonthFlow.h"
+#import "LastMonthPainView.h"
+#import "TodayFlowView.h"
+#import "TodayPainView.h"
+#import "SetTodaysFlowView.h"
+#import "SetTodaysPainView.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -20,8 +26,15 @@ static const int cellHeight = 68;
     UIColor *bgColor;
     StartEndPeriod *statusView;
     TimeLeftView *timeLeftView;
+    LastMonthFlow *lastMonthFlowView;
+    LastMonthPainView *lastMonthPainView;
     FertilizationView *fertilizationView;
+    TodayFlowView *todayFlowView;
+    TodayPainView *todayPainView;
+    SetTodaysFlowView *setTodaysFlowView;
+    SetTodaysPainView *setTodaysPainView;
     UILabel *status;
+    KLCPopup* popup;
     BOOL periodStarted;
 }
 @property (nonatomic, retain) NSDate * curDate;
@@ -41,6 +54,8 @@ static const int cellHeight = 68;
         [self setupStatusView];
         [self setupTimeLeftView];
         [self setupFertilizationView];
+        [self setupLastMonthViews];
+        [self setupTodaysViews];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -49,14 +64,6 @@ static const int cellHeight = 68;
 
 - (void)initNavBar
 {
-    UIBarButtonItem *lbb = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"searchicon.png"]
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self
-                                                           action:@selector(launchAddGameView)];
-    
-    lbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    self.navigationItem.leftBarButtonItem = lbb;
-    
     // Logo in the center of navigation bar
     UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 99, 31.5)];
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-logo.png"]];
@@ -71,10 +78,14 @@ static const int cellHeight = 68;
                                                            target:self
                                                            action:@selector(settingsTouched)];
     
-    rbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    rbb.tintColor = [Colors navTint];
     self.navigationItem.rightBarButtonItem = rbb;
     
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+}
+
+- (void)settingsTouched
+{
+    // TODO : LAUNCH SETTINGS PAGE
 }
 
 - (void)viewDidLoad
@@ -91,6 +102,23 @@ static const int cellHeight = 68;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupTodaysViews
+{
+    todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
+    todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
+    setTodaysFlowView = [[SetTodaysFlowView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
+    setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
+    setTodaysPainView.delegate = self;
+    setTodaysFlowView.delegate = self;
+}
+
+- (void)setupLastMonthViews
+{
+    // TODO: GET ACTUAL PAIN
+    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:@"Light"];
+    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withPain:@"High"];
 }
 
 - (void)setupFertilizationView
@@ -138,12 +166,13 @@ static const int cellHeight = 68;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) return kStatusViewHeight;
+    else if (indexPath.row == 5) return 20;
     return cellHeight;
 }
 
@@ -173,8 +202,23 @@ static const int cellHeight = 68;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        else if (indexPath.row == 3) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthFlow"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else if (indexPath.row == 4) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthPain"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        // GAP ROW
+        else if(indexPath.row == 5) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Gap"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
         else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
         }
         
         if (indexPath.row == 0) {
@@ -186,6 +230,18 @@ static const int cellHeight = 68;
         }
         else if (indexPath.row == 2) {
             [cell addSubview:fertilizationView];
+        }
+        else if (indexPath.row == 3) {
+            [cell addSubview:lastMonthFlowView];
+        }
+        else if (indexPath.row == 4) {
+            [cell addSubview:lastMonthPainView];
+        }
+        else if (indexPath.row == 6) {
+            [cell addSubview:todayFlowView];
+        }
+        else if (indexPath.row == 7) {
+            [cell addSubview:todayPainView];
         }
         else {
             
@@ -201,9 +257,8 @@ static const int cellHeight = 68;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        if(!self.datePicker)
-            self.datePicker = [THDatePickerViewController datePicker];
-        self.datePicker.date = self.curDate;
+        self.datePicker = [THDatePickerViewController datePicker];
+        self.datePicker.date = [NSDate date];
         self.datePicker.delegate = self;
         [self.datePicker setAllowClearDate:NO];
         [self.datePicker setAutoCloseOnSelectDate:YES];
@@ -222,13 +277,23 @@ static const int cellHeight = 68;
                                                                       KNSemiModalOptionKeys.shadowOpacity     : @(0.3),
                                                                       }];
     }
-    else if (indexPath.row == 2){
-//        KLCPopup* popup = [KLCPopup popupWithContentView:statusViewPopup showType:KLCPopupShowTypeGrowIn dismissType:KLCPopupDismissTypeShrinkOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
-//        
-//        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
-//                                                   KLCPopupVerticalLayoutBelowNav);
-//        
-//        [popup showWithLayout:layout];
+    // launches todays flow popup
+    else if (indexPath.row == 6){
+        popup = [KLCPopup popupWithContentView:setTodaysFlowView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:NO];
+        
+        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
+                                                   KLCPopupVerticalLayoutBottom);
+        
+        [popup showWithLayout:layout];
+    }
+    // launches todays pain popup
+    else if (indexPath.row == 7) {
+        popup = [KLCPopup popupWithContentView:setTodaysPainView showType:KLCPopupShowTypeSlideInFromBottom dismissType:KLCPopupDismissTypeSlideOutToBottom maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:NO];
+        
+        KLCPopupLayout layout = KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter,
+                                                   KLCPopupVerticalLayoutBottom);
+        
+        [popup showWithLayout:layout];
     }
     
 
@@ -250,6 +315,45 @@ static const int cellHeight = 68;
     [self dismissSemiModalView];
 }
 
+#pragma mark - SetTodaysPainView delegate methods
+
+- (void)setHighPain
+{
+    todayPainView.selectionLabel.text = @"High";
+    [popup dismiss:YES];
+}
+
+- (void)setLowPain
+{
+    todayPainView.selectionLabel.text = @"Low";
+    [popup dismiss:YES];
+}
+
+- (void)setMediumPain
+{
+    todayPainView.selectionLabel.text = @"Medium";
+    [popup dismiss:YES];
+}
+
+#pragma mark - SetTodaysFlowView delegate methods
+
+- (void)setLightFlow
+{
+    todayFlowView.selectionLabel.text = @"Light";
+    [popup dismiss:YES];
+}
+
+- (void)setMediumFlow
+{
+   todayFlowView.selectionLabel.text = @"Medium";
+    [popup dismiss:YES];
+}
+
+- (void)setHeavyFlow
+{
+    todayFlowView.selectionLabel.text = @"Heavy";
+    [popup dismiss:YES];
+}
 
 
 
