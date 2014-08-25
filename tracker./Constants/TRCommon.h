@@ -15,12 +15,23 @@ extern NSString *const kTRNumPeriodsKey;
 extern NSString *const kTRPeriodDurationKey;
 extern NSString *const kTRNoPeriodDurationKey;
 
+#pragma mark - previous period
+extern NSString *const kTRPreviousPeriodEndDateKey;
+
+#pragma mark - current period
+extern NSString *const kTRCurrentPeriodStartDateKey;
+
 #pragma mark - next period predictions
-extern NSString *const kTRExpectedStartDateKey;
-extern NSString *const kTRExpectedDurationKey;
+extern NSString *const kTRNextPeriodStartDateKey;
+extern NSString *const kTRNextPeriodDurationKey;
 
 #pragma mark - notifications
-extern NSString *const kTRPillAlarmKey;
-extern NSString *const kTRStartPeriodAlarmKey;
+extern NSString *const kTRPillAlarmToggleKey;
+extern NSString *const kTRPillAlarmDataKey;
+extern NSString *const kTRPillAlarmHourKey;
+
+extern NSString *const kTRStartPeriodAlarmToggleKey;
+extern NSString *const kTRStartPeriodAlarmDataKey;
+extern NSString *const kTRStartPeriodAlarmHourKey;
 
 @end
