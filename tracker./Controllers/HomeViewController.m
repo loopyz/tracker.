@@ -12,6 +12,8 @@
 #import "StartEndPeriod.h"
 #import "TimeLeftView.h"
 #import "FertilizationView.h"
+#import "LastMonthFlow.h"
+#import "LastMonthPainView.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -20,6 +22,8 @@ static const int cellHeight = 68;
     UIColor *bgColor;
     StartEndPeriod *statusView;
     TimeLeftView *timeLeftView;
+    LastMonthFlow *lastMonthFlowView;
+    LastMonthPainView *lastMonthPainView;
     FertilizationView *fertilizationView;
     UILabel *status;
     BOOL periodStarted;
@@ -41,6 +45,7 @@ static const int cellHeight = 68;
         [self setupStatusView];
         [self setupTimeLeftView];
         [self setupFertilizationView];
+        [self setupLastMonthViews];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -93,6 +98,13 @@ static const int cellHeight = 68;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setupLastMonthViews
+{
+    // TODO: GET ACTUAL PAIN
+    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:@"Light"];
+    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withPain:@"High"];
+}
+
 - (void)setupFertilizationView
 {
     fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFertilizationState:1];
@@ -138,12 +150,13 @@ static const int cellHeight = 68;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) return kStatusViewHeight;
+    else if (indexPath.row == 5) return 15;
     return cellHeight;
 }
 
@@ -173,6 +186,19 @@ static const int cellHeight = 68;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        else if (indexPath.row == 3) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthFlow"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else if (indexPath.row == 4) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthPain"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        // GAP ROW
+        else if(indexPath.row == 5) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Gap"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
         else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
         }
@@ -186,6 +212,12 @@ static const int cellHeight = 68;
         }
         else if (indexPath.row == 2) {
             [cell addSubview:fertilizationView];
+        }
+        else if (indexPath.row == 3) {
+            [cell addSubview:lastMonthFlowView];
+        }
+        else if (indexPath.row == 4) {
+            [cell addSubview:lastMonthPainView];
         }
         else {
             

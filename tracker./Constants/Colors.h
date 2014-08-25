@@ -24,4 +24,11 @@
 
 + (UIColor *)lightRed;
 
++ (UIColor *)lightBlue;
+
++ (UIColor *)darkRed;
+
++ (UIColor *)darkBlue;
+
+
 @end

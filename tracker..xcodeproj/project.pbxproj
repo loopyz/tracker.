@@ -34,6 +34,11 @@
 		8D5466FE19AB9F0A00BA9818 /* THDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5466E419AB9F0A00BA9818 /* THDatePickerViewController.m */; };
 		8D5466FF19AB9F0A00BA9818 /* THDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D5466E519AB9F0A00BA9818 /* THDatePickerViewController.xib */; };
 		8D54670219ABA12000BA9818 /* UIViewController+KNSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54670119ABA12000BA9818 /* UIViewController+KNSemiModal.m */; };
+		8D54670819ABA47B00BA9818 /* RegularCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54670719ABA47B00BA9818 /* RegularCellView.m */; };
+		8D54670B19ABA5C700BA9818 /* LastMonthFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54670A19ABA5C700BA9818 /* LastMonthFlow.m */; };
+		8D54670E19ABA7D900BA9818 /* LastMonthPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54670D19ABA7D900BA9818 /* LastMonthPainView.m */; };
+		8D54671119ABA9BC00BA9818 /* TodayFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54671019ABA9BC00BA9818 /* TodayFlowView.m */; };
+		8D54671419ABA9CA00BA9818 /* TodayPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54671319ABA9CA00BA9818 /* TodayPainView.m */; };
 		8DE53B6B19AAE16100B10508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6A19AAE16100B10508 /* Foundation.framework */; };
 		8DE53B6D19AAE16100B10508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */; };
 		8DE53B6F19AAE16100B10508 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6E19AAE16100B10508 /* UIKit.framework */; };
@@ -110,6 +115,16 @@
 		8D5466E519AB9F0A00BA9818 /* THDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THDatePickerViewController.xib; sourceTree = "<group>"; };
 		8D54670019ABA12000BA9818 /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+KNSemiModal.h"; path = "Libraries/UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
 		8D54670119ABA12000BA9818 /* UIViewController+KNSemiModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+KNSemiModal.m"; path = "Libraries/UIViewController+KNSemiModal.m"; sourceTree = "<group>"; };
+		8D54670619ABA47B00BA9818 /* RegularCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegularCellView.h; path = Views/RegularCellView.h; sourceTree = "<group>"; };
+		8D54670719ABA47B00BA9818 /* RegularCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegularCellView.m; path = Views/RegularCellView.m; sourceTree = "<group>"; };
+		8D54670919ABA5C700BA9818 /* LastMonthFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LastMonthFlow.h; path = Views/LastMonthFlow.h; sourceTree = "<group>"; };
+		8D54670A19ABA5C700BA9818 /* LastMonthFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LastMonthFlow.m; path = Views/LastMonthFlow.m; sourceTree = "<group>"; };
+		8D54670C19ABA7D900BA9818 /* LastMonthPainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LastMonthPainView.h; path = Views/LastMonthPainView.h; sourceTree = "<group>"; };
+		8D54670D19ABA7D900BA9818 /* LastMonthPainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LastMonthPainView.m; path = Views/LastMonthPainView.m; sourceTree = "<group>"; };
+		8D54670F19ABA9BC00BA9818 /* TodayFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodayFlowView.h; path = Views/TodayFlowView.h; sourceTree = "<group>"; };
+		8D54671019ABA9BC00BA9818 /* TodayFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodayFlowView.m; path = Views/TodayFlowView.m; sourceTree = "<group>"; };
+		8D54671219ABA9CA00BA9818 /* TodayPainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayPainView.h; sourceTree = "<group>"; };
+		8D54671319ABA9CA00BA9818 /* TodayPainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayPainView.m; sourceTree = "<group>"; };
 		8DE53B6719AAE16100B10508 /* tracker..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tracker..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE53B6A19AAE16100B10508 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -341,6 +356,16 @@
 				8DE53BAD19AAEEA200B10508 /* TimeLeftView.m */,
 				8DE53BD119AAF81800B10508 /* FertilizationView.h */,
 				8DE53BD219AAF81800B10508 /* FertilizationView.m */,
+				8D54670619ABA47B00BA9818 /* RegularCellView.h */,
+				8D54670719ABA47B00BA9818 /* RegularCellView.m */,
+				8D54670919ABA5C700BA9818 /* LastMonthFlow.h */,
+				8D54670A19ABA5C700BA9818 /* LastMonthFlow.m */,
+				8D54670C19ABA7D900BA9818 /* LastMonthPainView.h */,
+				8D54670D19ABA7D900BA9818 /* LastMonthPainView.m */,
+				8D54670F19ABA9BC00BA9818 /* TodayFlowView.h */,
+				8D54671019ABA9BC00BA9818 /* TodayFlowView.m */,
+				8D54671219ABA9CA00BA9818 /* TodayPainView.h */,
+				8D54671319ABA9CA00BA9818 /* TodayPainView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -525,6 +550,7 @@
 			files = (
 				8DE53BA419AAE74E00B10508 /* Colors.m in Sources */,
 				8D54670219ABA12000BA9818 /* UIViewController+KNSemiModal.m in Sources */,
+				8D54670819ABA47B00BA9818 /* RegularCellView.m in Sources */,
 				8DE53BA819AAEC5100B10508 /* StartEndPeriod.m in Sources */,
 				8D5466FC19AB9F0A00BA9818 /* THDateDay.m in Sources */,
 				8DE53B7B19AAE16100B10508 /* AppDelegate.m in Sources */,
@@ -532,9 +558,13 @@
 				8DE53BC419AAF23E00B10508 /* Fonts.m in Sources */,
 				8DE53B9C19AAE1DE00B10508 /* HomeViewController.m in Sources */,
 				8DE53BD319AAF81800B10508 /* FertilizationView.m in Sources */,
+				8D54670B19ABA5C700BA9818 /* LastMonthFlow.m in Sources */,
+				8D54670E19ABA7D900BA9818 /* LastMonthPainView.m in Sources */,
 				8DE53BAE19AAEEA200B10508 /* TimeLeftView.m in Sources */,
 				8DE53BA019AAE29800B10508 /* KLCPopup.m in Sources */,
+				8D54671419ABA9CA00BA9818 /* TodayPainView.m in Sources */,
 				8D5466FE19AB9F0A00BA9818 /* THDatePickerViewController.m in Sources */,
+				8D54671119ABA9BC00BA9818 /* TodayFlowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
