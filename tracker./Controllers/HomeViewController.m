@@ -24,7 +24,8 @@ static const int cellHeight = 68;
     UILabel *status;
     BOOL periodStarted;
 }
-
+@property (nonatomic, retain) NSDate * curDate;
+@property (nonatomic, retain) NSDateFormatter * formatter;
 @end
 
 @implementation HomeViewController
@@ -80,7 +81,11 @@ static const int cellHeight = 68;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.curDate = [NSDate date];
+    self.formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"dd/MM/yyyy --- HH:mm"];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -196,10 +201,26 @@ static const int cellHeight = 68;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        if (!periodStarted)
-            [self startPeriodTouched];
-        else
-            [self endPeriodTouched];
+        if(!self.datePicker)
+            self.datePicker = [THDatePickerViewController datePicker];
+        self.datePicker.date = self.curDate;
+        self.datePicker.delegate = self;
+        [self.datePicker setAllowClearDate:NO];
+        [self.datePicker setAutoCloseOnSelectDate:YES];
+        [self.datePicker setSelectedBackgroundColor:[UIColor colorWithRed:125/255.0 green:208/255.0 blue:0/255.0 alpha:1.0]];
+        [self.datePicker setCurrentDateColor:[UIColor colorWithRed:242/255.0 green:121/255.0 blue:53/255.0 alpha:1.0]];
+        
+        [self.datePicker setDateHasItemsCallback:^BOOL(NSDate *date) {
+            int tmp = (arc4random() % 30)+1;
+            if(tmp % 5 == 0)
+                return YES;
+            return NO;
+        }];
+        [self presentSemiViewController:self.datePicker withOptions:@{
+                                                                      KNSemiModalOptionKeys.pushParentBack    : @(NO),
+                                                                      KNSemiModalOptionKeys.animationDuration : @(0.5),
+                                                                      KNSemiModalOptionKeys.shadowOpacity     : @(0.3),
+                                                                      }];
     }
     else if (indexPath.row == 2){
 //        KLCPopup* popup = [KLCPopup popupWithContentView:statusViewPopup showType:KLCPopupShowTypeGrowIn dismissType:KLCPopupDismissTypeShrinkOut maskType:KLCPopupMaskTypeDimmed dismissOnBackgroundTouch:YES dismissOnContentTouch:YES];
@@ -213,6 +234,22 @@ static const int cellHeight = 68;
 
     
 }
+
+#pragma mark - date picker delegate methods
+-(void)datePickerDonePressed:(THDatePickerViewController *)datePicker{
+    self.curDate = datePicker.date;
+    if (!periodStarted)
+        [self startPeriodTouched];
+    else [self endPeriodTouched];
+    //[self.datePicker slideDownAndOut];
+    [self dismissSemiModalView];
+}
+
+-(void)datePickerCancelPressed:(THDatePickerViewController *)datePicker{
+    //[self.datePicker slideDownAndOut];
+    [self dismissSemiModalView];
+}
+
 
 
 

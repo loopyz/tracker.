@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "THDatePickerViewController.h"
 
-
-@interface HomeViewController : UITableViewController
+@interface HomeViewController : UITableViewController<THDatePickerDelegate>
+@property (nonatomic, strong) THDatePickerViewController * datePicker;
 
 @end
