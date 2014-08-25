@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol  SetTodaysPainView;
+
 @interface SetTodaysPainView : UIView
+
+@property (nonatomic, weak) id<SetTodaysPainView> delegate;
+
+
+@end
+
+
+@protocol SetTodaysPainView
+
+@required
+-(void)setLowPain;
+-(void)setHighPain;
+-(void)setMediumPain;
 
 @end

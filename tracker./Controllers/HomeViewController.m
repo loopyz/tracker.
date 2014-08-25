@@ -113,6 +113,7 @@ static const int cellHeight = 68;
     todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
     setTodaysFlowView = [[SetTodaysFlowView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
+    setTodaysPainView.delegate = self;
 }
 
 - (void)setupLastMonthViews
@@ -316,6 +317,22 @@ static const int cellHeight = 68;
     [self dismissSemiModalView];
 }
 
+#pragma mark - SetTodaysPainView delegate methods
+
+- (void)setHighPain
+{
+    todayPainView.selectionLabel.text = @"High";
+}
+
+- (void)setLowPain
+{
+    todayPainView.selectionLabel.text = @"Low";
+}
+
+- (void)setMediumPain
+{
+    todayPainView.selectionLabel.text = @"Medium";
+}
 
 
 

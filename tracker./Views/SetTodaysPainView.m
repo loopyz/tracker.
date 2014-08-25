@@ -61,16 +61,16 @@
 
 - (void)lowPainButtonTouched
 {
-    
+    [self.delegate setLowPain];
 }
 
 - (void)mediumPainButtonTouched
 {
-    
+    [self.delegate setMediumPain];
 }
 
 - (void)highPainButtonTouched
 {
-    
+    [self.delegate setHighPain];
 }
 @end

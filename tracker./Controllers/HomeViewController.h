@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "THDatePickerViewController.h"
+#import "SetTodaysPainView.h"
 
-@interface HomeViewController : UITableViewController<THDatePickerDelegate>
+@interface HomeViewController : UITableViewController<THDatePickerDelegate, SetTodaysPainView>
 @property (nonatomic, strong) THDatePickerViewController * datePicker;
 
 @end
