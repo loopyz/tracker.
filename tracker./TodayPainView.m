@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [Colors darkBlue];
+        self.backgroundColor = [Colors darkRed];
         self.headerLabel.text = @"Today's pain:";
         self.selectionLabel.text = @"Tap to set";
         [self setIcon:[UIImage imageNamed:@"lightningicon.png"]];

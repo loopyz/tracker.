@@ -16,8 +16,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [Colors lightBlue];
-        self.headerLabel.text = @"Today month's flow:";
+        self.backgroundColor = [Colors darkBlue];
+        self.headerLabel.text = @"Today's flow:";
         self.selectionLabel.text = @"Tap to set";
         [self setIcon:[UIImage imageNamed:@"raindropicon.png"]];
     }

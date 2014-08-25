@@ -14,6 +14,8 @@
 #import "FertilizationView.h"
 #import "LastMonthFlow.h"
 #import "LastMonthPainView.h"
+#import "TodayFlowView.h"
+#import "TodayPainView.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -25,6 +27,8 @@ static const int cellHeight = 68;
     LastMonthFlow *lastMonthFlowView;
     LastMonthPainView *lastMonthPainView;
     FertilizationView *fertilizationView;
+    TodayFlowView *todayFlowView;
+    TodayPainView *todayPainView;
     UILabel *status;
     BOOL periodStarted;
 }
@@ -46,6 +50,7 @@ static const int cellHeight = 68;
         [self setupTimeLeftView];
         [self setupFertilizationView];
         [self setupLastMonthViews];
+        [self setupTodaysViews];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -96,6 +101,12 @@ static const int cellHeight = 68;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupTodaysViews
+{
+    todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
+    todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
 }
 
 - (void)setupLastMonthViews
@@ -150,13 +161,13 @@ static const int cellHeight = 68;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) return kStatusViewHeight;
-    else if (indexPath.row == 5) return 15;
+    else if (indexPath.row == 5) return 20;
     return cellHeight;
 }
 
@@ -218,6 +229,12 @@ static const int cellHeight = 68;
         }
         else if (indexPath.row == 4) {
             [cell addSubview:lastMonthPainView];
+        }
+        else if (indexPath.row == 6) {
+            [cell addSubview:todayFlowView];
+        }
+        else if (indexPath.row == 7) {
+            [cell addSubview:todayPainView];
         }
         else {
             
