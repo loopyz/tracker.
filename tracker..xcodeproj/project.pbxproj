@@ -55,6 +55,10 @@
 		8D54673419ABBA0800BA9818 /* SetTodaysPainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54673319ABBA0800BA9818 /* SetTodaysPainView.m */; };
 		8D54673719ABD52C00BA9818 /* settingsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54673519ABD52C00BA9818 /* settingsicon.png */; };
 		8D54673819ABD52C00BA9818 /* settingsicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D54673619ABD52C00BA9818 /* settingsicon@2x.png */; };
+		8D54673B19ABDBD800BA9818 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D54673A19ABDBD800BA9818 /* SettingsViewController.m */; };
+		8D5467C019ABE73500BA9818 /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5467BF19ABE73500BA9818 /* FXForms.m */; };
+		8D5467C319ABE76F00BA9818 /* SettingsForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5467C219ABE76F00BA9818 /* SettingsForm.m */; };
+		8D5467C619ABEF5900BA9818 /* CustomDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5467C519ABEF5900BA9818 /* CustomDatePicker.m */; };
 		8DE53B6B19AAE16100B10508 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6A19AAE16100B10508 /* Foundation.framework */; };
 		8DE53B6D19AAE16100B10508 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */; };
 		8DE53B6F19AAE16100B10508 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE53B6E19AAE16100B10508 /* UIKit.framework */; };
@@ -159,6 +163,14 @@
 		8D54673319ABBA0800BA9818 /* SetTodaysPainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetTodaysPainView.m; path = Views/SetTodaysPainView.m; sourceTree = "<group>"; };
 		8D54673519ABD52C00BA9818 /* settingsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsicon.png; sourceTree = "<group>"; };
 		8D54673619ABD52C00BA9818 /* settingsicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsicon@2x.png"; sourceTree = "<group>"; };
+		8D54673919ABDBD800BA9818 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Controllers/SettingsViewController.h; sourceTree = "<group>"; };
+		8D54673A19ABDBD800BA9818 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = Controllers/SettingsViewController.m; sourceTree = "<group>"; };
+		8D5467BE19ABE73500BA9818 /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
+		8D5467BF19ABE73500BA9818 /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
+		8D5467C119ABE76F00BA9818 /* SettingsForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsForm.h; path = Model/SettingsForm.h; sourceTree = "<group>"; };
+		8D5467C219ABE76F00BA9818 /* SettingsForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsForm.m; path = Model/SettingsForm.m; sourceTree = "<group>"; };
+		8D5467C419ABEF5900BA9818 /* CustomDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomDatePicker.h; path = Model/CustomDatePicker.h; sourceTree = "<group>"; };
+		8D5467C519ABEF5900BA9818 /* CustomDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomDatePicker.m; path = Model/CustomDatePicker.m; sourceTree = "<group>"; };
 		8DE53B6719AAE16100B10508 /* tracker..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tracker..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE53B6A19AAE16100B10508 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DE53B6C19AAE16100B10508 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -299,6 +311,16 @@
 			path = todaypainview;
 			sourceTree = "<group>";
 		};
+		8D5467BD19ABE73500BA9818 /* FXForms */ = {
+			isa = PBXGroup;
+			children = (
+				8D5467BE19ABE73500BA9818 /* FXForms.h */,
+				8D5467BF19ABE73500BA9818 /* FXForms.m */,
+			);
+			name = FXForms;
+			path = Libraries/FXForms;
+			sourceTree = "<group>";
+		};
 		8DE53B5E19AAE16100B10508 = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +402,8 @@
 			children = (
 				8DE53B9A19AAE1DE00B10508 /* HomeViewController.h */,
 				8DE53B9B19AAE1DE00B10508 /* HomeViewController.m */,
+				8D54673919ABDBD800BA9818 /* SettingsViewController.h */,
+				8D54673A19ABDBD800BA9818 /* SettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -387,6 +411,7 @@
 		8DE53B9D19AAE27500B10508 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8D5467BD19ABE73500BA9818 /* FXForms */,
 				8D5466C819AB9F0A00BA9818 /* THCalendarDatePicker */,
 				8DE53B9E19AAE29800B10508 /* KLCPopup.h */,
 				8DE53B9F19AAE29800B10508 /* KLCPopup.m */,
@@ -478,6 +503,10 @@
 		8DE53BD419AAF98700B10508 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8D5467C119ABE76F00BA9818 /* SettingsForm.h */,
+				8D5467C219ABE76F00BA9818 /* SettingsForm.m */,
+				8D5467C419ABEF5900BA9818 /* CustomDatePicker.h */,
+				8D5467C519ABEF5900BA9818 /* CustomDatePicker.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -634,9 +663,13 @@
 				8D54673419ABBA0800BA9818 /* SetTodaysPainView.m in Sources */,
 				8D54670219ABA12000BA9818 /* UIViewController+KNSemiModal.m in Sources */,
 				8D54670819ABA47B00BA9818 /* RegularCellView.m in Sources */,
+				8D5467C019ABE73500BA9818 /* FXForms.m in Sources */,
+				8D5467C619ABEF5900BA9818 /* CustomDatePicker.m in Sources */,
 				8DE53BA819AAEC5100B10508 /* StartEndPeriod.m in Sources */,
 				8D5466FC19AB9F0A00BA9818 /* THDateDay.m in Sources */,
 				8DE53B7B19AAE16100B10508 /* AppDelegate.m in Sources */,
+				8D5467C319ABE76F00BA9818 /* SettingsForm.m in Sources */,
+				8D54673B19ABDBD800BA9818 /* SettingsViewController.m in Sources */,
 				8DE53B7719AAE16100B10508 /* main.m in Sources */,
 				8DE53BC419AAF23E00B10508 /* Fonts.m in Sources */,
 				8DE53B9C19AAE1DE00B10508 /* HomeViewController.m in Sources */,
