@@ -10,6 +10,13 @@
 
 @interface TRCommon : NSObject
 
+#pragma mark - basic
+extern NSString *const kTRHasBeenLaunchedKey;
+
+#pragma mark - default period data
+extern const int kTRDefaultPeriodDuration;
+extern const int kTRDefaultNoPeriodDuration;
+
 #pragma mark - record of past periods
 extern NSString *const kTRNumPeriodsKey;
 extern NSString *const kTRPeriodDurationKey;
@@ -33,5 +40,6 @@ extern NSString *const kTRPillAlarmHourKey;
 extern NSString *const kTRStartPeriodAlarmToggleKey;
 extern NSString *const kTRStartPeriodAlarmDataKey;
 extern NSString *const kTRStartPeriodAlarmHourKey;
+extern NSString *const kTRStartPeriodAlarmNotificationText;
 
 @end

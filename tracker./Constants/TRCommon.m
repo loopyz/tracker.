@@ -10,6 +10,13 @@
 
 @implementation TRCommon
 
+#pragma mark - basic
+NSString *const kTRHasBeenLaunchedKey = @"hasBeenLaunched";
+
+#pragma mark - default period data
+const int kTRDefaultPeriodDuration = 7;
+const int kTRDefaultNoPeriodDuration = 28;
+
 #pragma mark - record of past periods
 NSString *const kTRNumPeriodsKey = @"numPeriods";
 NSString *const kTRPeriodDurationKey = @"periodDuration";
@@ -33,5 +40,6 @@ NSString *const kTRPillAlarmHourKey = @"pillAlarmHour";
 NSString *const kTRStartPeriodAlarmToggleKey = @"startPeriodAlarmToggle";
 NSString *const kTRStartPeriodAlarmDataKey = @"startPeriodAlarmData";
 NSString *const kTRStartPeriodAlarmHourKey = @"startPeriodAlarmHour";
+NSString *const kTRStartPeriodAlarmNotificationText = @"Has your period started yet? Check in with Tracker.";
 
 @end

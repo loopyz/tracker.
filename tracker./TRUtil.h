@@ -10,8 +10,8 @@
 
 @interface TRUtil : NSObject
 
-- (void)resetDefaults;
-- (void)addCurrentPeriod:(NSDate *)startDate;
-- (void)addPastPeriod:(NSDate *)endDate;
++ (void)resetDefaults;
++ (void)addCurrentPeriod:(NSDate *)startDate;
++ (void)addPastPeriod:(NSDate *)endDate;
 
 @end

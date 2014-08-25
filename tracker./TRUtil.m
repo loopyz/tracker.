@@ -11,7 +11,7 @@
 @implementation TRUtil
 
 #pragma mark - helper methods (internal)
-- (void)removeLocalNotificationFromData:(NSData *)data
++ (void)removeLocalNotificationFromData:(NSData *)data
 {
     if (data != nil) {
         UILocalNotification *localNotif = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -20,7 +20,7 @@
     }
 }
 
-- (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
++ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
 {
     NSUInteger unitFlags = NSDayCalendarUnit;
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -29,7 +29,7 @@
     return daysBetween+1;
 }
 
-- (NSDate *)convertDate:(NSDate *)date withHours:(NSInteger)hour
++ (NSDate *)convertDate:(NSDate *)date withHours:(NSInteger)hour
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSUInteger timeComps = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSTimeZoneCalendarUnit);
@@ -41,10 +41,13 @@
 }
 
 #pragma mark - main methods
-- (void)resetDefaults
++ (void)resetDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    // set hasBeenLaunched
+    [defaults setBool:YES forKey:kTRHasBeenLaunchedKey];
+
     // set up past records
     [defaults setInteger:0 forKey:kTRNumPeriodsKey];
     [defaults setInteger:0 forKey:kTRPeriodDurationKey];
@@ -64,7 +67,7 @@
     [defaults removeObjectForKey:kTRPillAlarmDataKey];
     
     // toggle alarms to off
-    [defaults setBool:NO forKey:kTRStartPeriodAlarmToggleKey];
+    [defaults setBool:YES forKey:kTRStartPeriodAlarmToggleKey];
     [defaults setBool:NO forKey:kTRPillAlarmToggleKey];
     
     // reset alarm times to 9am
@@ -74,7 +77,7 @@
     [defaults synchronize];
 }
 
-- (void)addCurrentPeriod:(NSDate *)startDate
++ (void)addCurrentPeriod:(NSDate *)startDate
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -83,7 +86,7 @@
 
     // compute previous period values
     NSDate *endDate = [defaults objectForKey:kTRPreviousPeriodEndDateKey];
-    NSInteger previousNoPeriodDuration = [self daysBetween:endDate and:startDate];
+    NSInteger previousNoPeriodDuration = (endDate == nil) ? 0 : [self daysBetween:endDate and:startDate];
     
     // update past records
     [defaults setInteger:noPeriodDuration + previousNoPeriodDuration forKey:kTRNoPeriodDurationKey];
@@ -100,22 +103,22 @@
     [defaults synchronize];
 }
 
-- (void)addPastPeriod:(NSDate *)endDate
++ (void)addPastPeriod:(NSDate *)endDate
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    // get past records
-    NSInteger periodDuration = [defaults integerForKey:kTRPeriodDurationKey];
-    NSInteger noPeriodDuration = [defaults integerForKey:kTRNoPeriodDurationKey];
-    NSInteger numPeriods = [defaults integerForKey:kTRNumPeriodsKey];
     
     // compute current period values
     NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
     NSInteger currentPeriodDuration = [self daysBetween:startDate and:endDate];
     
+    // get past records
+    NSInteger periodDuration = [defaults integerForKey:kTRPeriodDurationKey] + currentPeriodDuration;
+    NSInteger noPeriodDuration = [defaults integerForKey:kTRNoPeriodDurationKey];
+    NSInteger numPeriods = [defaults integerForKey:kTRNumPeriodsKey] + 1;
+    
     // update past records
-    [defaults setInteger:periodDuration + currentPeriodDuration forKey:kTRPeriodDurationKey];
-    [defaults setInteger:numPeriods + 1 forKey:kTRNumPeriodsKey];
+    [defaults setInteger:periodDuration forKey:kTRPeriodDurationKey];
+    [defaults setInteger:numPeriods forKey:kTRNumPeriodsKey];
     
     // reset current start date, store current end date
     [defaults removeObjectForKey:kTRCurrentPeriodStartDateKey];
@@ -126,21 +129,23 @@
     [self removeLocalNotificationFromData:startPeriodAlarmData];
     [defaults removeObjectForKey:kTRStartPeriodAlarmDataKey];
     
-    // predict next period and create starting period alert if starting period alarm is toggled on
-    BOOL startPeriodAlarmToggle = [defaults boolForKey:kTRStartPeriodAlarmToggleKey];
+    // predict next period
+    NSInteger startPeriodAlarmHour = [defaults integerForKey:kTRStartPeriodAlarmHourKey];
+    NSInteger nextDuration = ((numPeriods == 0) || (periodDuration == 0))? kTRDefaultPeriodDuration : periodDuration/numPeriods;
+    NSInteger nextNoPeriodDuration = ((numPeriods == 0) || (noPeriodDuration == 0))? kTRDefaultNoPeriodDuration : noPeriodDuration/numPeriods;
+    NSDate *nextStartDate = [endDate dateByAddingTimeInterval:60*60*24*nextNoPeriodDuration];
 
-    if (startPeriodAlarmToggle) {
-        NSInteger startPeriodAlarmHour = [defaults integerForKey:kTRStartPeriodAlarmHourKey];
-        NSInteger nextDuration = (numPeriods == 0) ? 8 : periodDuration/numPeriods;
-        nextDuration = (nextDuration == 0) ? 8 : nextDuration;
-        NSInteger nextNoPeriodDuration = noPeriodDuration/numPeriods;
+    [defaults setObject:nextStartDate forKey:kTRNextPeriodStartDateKey];
+    [defaults setInteger:nextDuration forKey:kTRNextPeriodDurationKey];
     
-        NSDate *nextStartDate = [endDate dateByAddingTimeInterval:60*60*24*nextNoPeriodDuration];
-        
+    // create starting period alert if starting period alarm is toggled on
+    BOOL startPeriodAlarmToggle = [defaults boolForKey:kTRStartPeriodAlarmToggleKey];
+    if (startPeriodAlarmToggle) {
         UILocalNotification *localNotif = [[UILocalNotification alloc] init];
         [localNotif setTimeZone:[NSTimeZone defaultTimeZone]];
         [localNotif setFireDate:[self convertDate:nextStartDate withHours:startPeriodAlarmHour]];
-        [localNotif setAlertBody:@"Has your period started yet? Check in with Tracker."];
+        //[localNotif setFireDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        [localNotif setAlertBody:kTRStartPeriodAlarmNotificationText];
         [localNotif setHasAction:NO];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
         
