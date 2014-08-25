@@ -84,7 +84,7 @@ static int FIRST_WEEKDAY = 2;
     else [self hideClearButton];
     [self addSwipeGestures];
     self.okBtn.enabled = [self shouldOkBeEnabled];
-    [self.okBtn setImage:[UIImage imageNamed:(_autoCloseOnSelectDate ? @"dialog_clear.png" : @"dialog_ok.png")] forState:UIControlStateNormal];
+    [self.okBtn setImage:[UIImage imageNamed:@"dialog_ok.png"] forState:UIControlStateNormal];
     [self redraw];
 }
 
