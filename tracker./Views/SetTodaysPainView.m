@@ -61,7 +61,6 @@
 
 - (void)lowPainButtonTouched
 {
-    NSLog(@"LOW PAIN IS SUPPOSED TO TOUCH");
     [self.delegate setLowPain];
 }
 

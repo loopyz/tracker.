@@ -30,5 +30,7 @@
 
 + (UIColor *)darkBlue;
 
++ (UIColor *)navTint;
+
 
 @end

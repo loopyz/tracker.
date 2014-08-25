@@ -64,14 +64,6 @@ static const int cellHeight = 68;
 
 - (void)initNavBar
 {
-    UIBarButtonItem *lbb = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"searchicon.png"]
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self
-                                                           action:@selector(launchAddGameView)];
-    
-    lbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    self.navigationItem.leftBarButtonItem = lbb;
-    
     // Logo in the center of navigation bar
     UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 99, 31.5)];
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-logo.png"]];
@@ -86,10 +78,14 @@ static const int cellHeight = 68;
                                                            target:self
                                                            action:@selector(settingsTouched)];
     
-    rbb.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    rbb.tintColor = [Colors navTint];
     self.navigationItem.rightBarButtonItem = rbb;
     
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+}
+
+- (void)settingsTouched
+{
+    // TODO : LAUNCH SETTINGS PAGE
 }
 
 - (void)viewDidLoad
