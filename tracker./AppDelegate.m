@@ -24,7 +24,7 @@
     self.navigationController = navigationController;
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-    
+
     return YES;
 }
 
