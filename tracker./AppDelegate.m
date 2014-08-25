@@ -1,14 +1,15 @@
 //
-//  TestAppDelegate.m
+//  AppDelegate.m
 //  tracker.
 //
 //  Created by Lucy Guo on 8/24/14.
 //  Copyright (c) 2014 Lucy Guo. All rights reserved.
 //
 
-#import "TestAppDelegate.h"
+#import "AppDelegate.h"
+#import "HomeViewController.h"
 
-@implementation TestAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -16,6 +17,14 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+    HomeViewController *hvc = [[HomeViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:hvc];
+    self.navigationController = navigationController;
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

@@ -1,5 +1,5 @@
 //
-//  TestAppDelegate.h
+//  AppDelegate.h
 //  tracker.
 //
 //  Created by Lucy Guo on 8/24/14.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestAppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end
