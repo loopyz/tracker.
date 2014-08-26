@@ -61,16 +61,19 @@
 
 - (void)lowPainButtonTouched
 {
+    [TRUtil setCurrentPeriodPain:kTRPainLow];
     [self.delegate setLowPain];
 }
 
 - (void)mediumPainButtonTouched
 {
+    [TRUtil setCurrentPeriodPain:kTRPainMedium];
     [self.delegate setMediumPain];
 }
 
 - (void)highPainButtonTouched
 {
+    [TRUtil setCurrentPeriodPain:kTRPainHigh];
     [self.delegate setHighPain];
 }
 @end

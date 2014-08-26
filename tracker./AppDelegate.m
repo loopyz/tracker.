@@ -10,7 +10,7 @@
 #import "HomeViewController.h"
 #import "Colors.h"
 
-#define FORCE_RESET true
+#define FORCE_RESET false
 
 @implementation AppDelegate
 

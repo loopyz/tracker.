@@ -74,7 +74,9 @@ static const int cellHeight = 68;
         NSString *previousPeriodPain = [defaults stringForKey:kTRPreviousPeriodPainKey];
         [self setupLastMonthViews:previousPeriodFlow pain:previousPeriodPain];
 
-        [self setupTodaysViews];
+        NSString *currentPeriodFlow = [defaults stringForKey:kTRCurrentPeriodFlowKey];
+        NSString *currentPeriodPain = [defaults stringForKey:kTRCurrentPeriodPainKey];
+        [self setupTodaysViews:currentPeriodFlow pain:currentPeriodPain];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -125,7 +127,7 @@ static const int cellHeight = 68;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setupTodaysViews
+- (void)setupTodaysViews:(NSString *)flow pain:(NSString *)pain
 {
     todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
     todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
@@ -133,6 +135,14 @@ static const int cellHeight = 68;
     setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView.delegate = self;
     setTodaysFlowView.delegate = self;
+    
+    if (pain) {
+        todayPainView.selectionLabel.text = pain;
+    }
+    
+    if (flow) {
+        todayFlowView.selectionLabel.text = flow;
+    }
 }
 
 - (void)setupLastMonthViews:(NSString *)flow pain:(NSString *)pain
@@ -352,19 +362,19 @@ static const int cellHeight = 68;
 
 - (void)setHighPain
 {
-    todayPainView.selectionLabel.text = @"High";
+    todayPainView.selectionLabel.text = kTRPainHigh;
     [popup dismiss:YES];
 }
 
 - (void)setLowPain
 {
-    todayPainView.selectionLabel.text = @"Low";
+    todayPainView.selectionLabel.text = kTRPainLow;
     [popup dismiss:YES];
 }
 
 - (void)setMediumPain
 {
-    todayPainView.selectionLabel.text = @"Medium";
+    todayPainView.selectionLabel.text = kTRPainMedium;
     [popup dismiss:YES];
 }
 
@@ -372,19 +382,19 @@ static const int cellHeight = 68;
 
 - (void)setLightFlow
 {
-    todayFlowView.selectionLabel.text = @"Light";
+    todayFlowView.selectionLabel.text = kTRFlowLight;
     [popup dismiss:YES];
 }
 
 - (void)setMediumFlow
 {
-   todayFlowView.selectionLabel.text = @"Medium";
+   todayFlowView.selectionLabel.text = kTRFlowMedium;
     [popup dismiss:YES];
 }
 
 - (void)setHeavyFlow
 {
-    todayFlowView.selectionLabel.text = @"Heavy";
+    todayFlowView.selectionLabel.text = kTRFlowHeavy;
     [popup dismiss:YES];
 }
 

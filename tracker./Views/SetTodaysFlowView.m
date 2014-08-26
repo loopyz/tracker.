@@ -61,16 +61,19 @@
 
 - (void)lightButtonTouched
 {
+    [TRUtil setCurrentPeriodFlow:kTRFlowLight];
     [self.delegate setLightFlow];
 }
 
 - (void)mediumButtonTouched
 {
+    [TRUtil setCurrentPeriodFlow:kTRFlowMedium];
     [self.delegate setMediumFlow];
 }
 
 - (void)heavyButtonTouched
 {
+    [TRUtil setCurrentPeriodFlow:kTRFlowHeavy];
     [self.delegate setHeavyFlow];
 }
 
