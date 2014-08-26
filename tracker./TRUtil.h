@@ -18,6 +18,12 @@
 + (void)setCurrentPeriodFlow:(NSString *)flow;
 + (void)setCurrentPeriodPain:(NSString *)pain;
 
++ (void)setPillAlarm:(NSInteger)hour minute:(NSInteger)minute;
++ (void)removePillAlarm;
+
++ (void)setStartPeriodAlarm:(NSInteger)day hour:(NSInteger)hour;
++ (void)removeStartPeriodAlarm;
+
 + (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 @end

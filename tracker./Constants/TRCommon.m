@@ -16,6 +16,7 @@ NSString *const kTRHasBeenLaunchedKey = @"hasBeenLaunched";
 #pragma mark - default period data
 const int kTRDefaultPeriodDuration = 7;
 const int kTRDefaultNoPeriodDuration = 28;
+const int kTRDefaultAlertHour = 9;
 NSString *const kTRPainLow = @"Low";
 NSString *const kTRPainMedium = @"Medium";
 NSString *const kTRPainHigh = @"High";
@@ -46,6 +47,7 @@ NSString *const kTRNextPeriodDurationKey = @"nextPeriodDuration";
 NSString *const kTRPillAlarmToggleKey = @"pillAlarmToggle";
 NSString *const kTRPillAlarmDataKey = @"pillAlarmData";
 NSString *const kTRPillAlarmHourKey = @"pillAlarmHour";
+NSString *const kTRPillAlarmNotificationText = @"Don't forget to take your daily birth pill! - Tracker.";
 
 NSString *const kTRStartPeriodAlarmToggleKey = @"startPeriodAlarmToggle";
 NSString *const kTRStartPeriodAlarmDataKey = @"startPeriodAlarmData";

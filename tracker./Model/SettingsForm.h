@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, Gender)
     GenderOther
 };
 
-typedef NS_OPTIONS(NSInteger, PillNotifiactions)
+typedef NS_OPTIONS(NSInteger, PillNotifications)
 {
     PillNotificationsOff = 0,
     PillNotificationsOn
@@ -52,7 +52,7 @@ typedef NS_OPTIONS(NSInteger, PeriodNotifications)
 @property (nonatomic, copy) NSString *notifications;
 @property (nonatomic, assign) BOOL agreedToTerms;
 
-@property (nonatomic, assign) PillNotifiactions pillNotif;
+@property (nonatomic, assign) PillNotifications pillNotif;
 @property (nonatomic, assign) PeriodNotifications periodNotif;
 @property (nonatomic, assign) NSUInteger daysBefore;
 

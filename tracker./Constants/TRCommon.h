@@ -16,6 +16,7 @@ extern NSString *const kTRHasBeenLaunchedKey;
 #pragma mark - default period data
 extern const int kTRDefaultPeriodDuration;
 extern const int kTRDefaultNoPeriodDuration;
+extern const int kTRDefaultAlertHour;
 extern NSString *const kTRPainLow;
 extern NSString *const kTRPainMedium;
 extern NSString *const kTRPainHigh;
@@ -46,6 +47,7 @@ extern NSString *const kTRNextPeriodDurationKey;
 extern NSString *const kTRPillAlarmToggleKey;
 extern NSString *const kTRPillAlarmDataKey;
 extern NSString *const kTRPillAlarmHourKey;
+extern NSString *const kTRPillAlarmNotificationText;
 
 extern NSString *const kTRStartPeriodAlarmToggleKey;
 extern NSString *const kTRStartPeriodAlarmDataKey;
