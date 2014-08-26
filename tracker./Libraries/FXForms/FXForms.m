@@ -2991,6 +2991,30 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 {
     self.datePicker = [[UIDatePicker alloc] init];
     [self.datePicker addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
+    self.pickerAction = [[UIActionSheet alloc] initWithTitle:@"Date"
+                                               delegate:nil
+                                      cancelButtonTitle:nil
+                                 destructiveButtonTitle:nil
+                                      otherButtonTitles:nil];
+    
+    // asdsfes
+    UIToolbar *toolbarPicker = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    toolbarPicker.barStyle=UIBarStyleBlackOpaque;
+    [toolbarPicker sizeToFit];
+    NSMutableArray *itemsBar = [[NSMutableArray alloc] init];
+    //calls DoneClicked
+    UIBarButtonItem *bbitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(DoneClicked)];
+    [itemsBar addObject:bbitem];
+    [toolbarPicker setItems:itemsBar animated:YES];
+    [self.pickerAction addSubview:toolbarPicker];
+    [self.pickerAction addSubview:self.datePicker];
+    [self.pickerAction setBounds:CGRectMake(0,0,320, 464)];
+    
+}
+
+- (void)DoneClicked
+{
+    
 }
 
 - (void)update

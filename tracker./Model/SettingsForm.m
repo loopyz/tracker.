@@ -21,19 +21,15 @@
              
              @{ FXFormFieldHeader: @"Pill Notifications",
                 FXFormFieldKey: @"pillNotif",
-                FXFormFieldTitle: @"",
-               FXFormFieldPlaceholder: @"On",
-               FXFormFieldOptions: @[@"Off"],
-               FXFormFieldCell:[FXFormOptionSegmentsCell class]},
+                FXFormFieldTitle: @"Pill Notification",
+               FXFormFieldCell:[FXFormSwitchCell class]},
 
              @"Time",
              
              @{ FXFormFieldHeader: @"Period Notifications",
                 FXFormFieldKey: @"periodNotif",
-                FXFormFieldTitle: @"",
-                FXFormFieldPlaceholder: @"On",
-                FXFormFieldOptions: @[@"Off"],
-                FXFormFieldCell:[FXFormOptionSegmentsCell class]},
+                FXFormFieldTitle: @"Period Notification",
+                FXFormFieldCell:[FXFormSwitchCell class]},
              
              
              @{FXFormFieldKey: @"daysBefore", FXFormFieldCell: [FXFormStepperCell class]},

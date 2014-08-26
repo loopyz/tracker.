@@ -249,6 +249,7 @@ static NSString *const FXFormFieldTypeImage = @"image";
 @interface FXFormDatePickerCell : FXFormBaseCell
 
 @property (nonatomic, readonly) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIActionSheet *pickerAction;
 
 @end
 
