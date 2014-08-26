@@ -53,9 +53,11 @@ typedef NS_OPTIONS(NSInteger, PeriodNotifications)
 @property (nonatomic, assign) BOOL agreedToTerms;
 
 @property (nonatomic, assign) PillNotifiactions pillNotif;
-@property (nonatomic, assign) PeriodNotifications periodNotif;
+@property (nonatomic, assign) PeriodNotifications periodFNotif;
 @property (nonatomic, assign) NSUInteger daysBefore;
 
+@property (nonatomic, assign) UISwitch *pillSwitch;
+@property (nonatomic, assign) UISwitch *periodSwitch;
 
 
 @end

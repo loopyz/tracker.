@@ -15,16 +15,19 @@
 //which lets us dictate exactly which fields appear
 //and in what order they appear
 
+
 - (NSArray *)fields
 {
     return @[
              
              @{ FXFormFieldHeader: @"Pill Notifications",
-                FXFormFieldKey: @"pillNotif",
+                FXFormFieldKey: @"pillSwitch",
                 FXFormFieldTitle: @"Pill Notification",
                FXFormFieldCell:[FXFormSwitchCell class]},
 
-             @"Time",
+             @{ FXFormFieldTitle : @"Time",
+                FXFormFieldCell:[FXFormDatePickerCell class]
+                },
              
              @{ FXFormFieldHeader: @"Period Notifications",
                 FXFormFieldKey: @"periodNotif",
@@ -46,6 +49,11 @@
              @{FXFormFieldTitle: @"Clear Data", FXFormFieldHeader: @"", FXFormFieldAction: @"clearData"},
              
              ];
+}
+
+- (UISwitch *)setOn:(UISwitch *)uiSwitch{
+    [uiSwitch setOn:YES];
+    return uiSwitch;
 }
 
 @end
