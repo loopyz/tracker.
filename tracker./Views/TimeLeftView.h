@@ -20,4 +20,5 @@
 - (void)setupCurrentDayOfPeriod:(NSUInteger)currentDay;
 - (void)setupDaysLeftTillEnd:(NSUInteger)daysLeft;
 - (void)setupDaysUntilPeriod:(NSUInteger)daysUntilPeriod;
+- (void)setupNoPreviousData;
 @end

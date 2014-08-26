@@ -43,7 +43,7 @@
              
              @{FXFormFieldTitle: @"Save Settings", FXFormFieldHeader: @"", FXFormFieldAction: @"saveSettings:"},
              
-             @{FXFormFieldTitle: @"Clear Data", FXFormFieldHeader: @"", FXFormFieldAction: @"clearData"},
+             @{FXFormFieldTitle: @"Clear Data", FXFormFieldAction: @"clearData"},
              
              ];
 }

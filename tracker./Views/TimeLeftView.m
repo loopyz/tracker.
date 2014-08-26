@@ -49,6 +49,7 @@
     [self addSubview:daysLeftTillEndLabel];
     
     daysUntilPeriodLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, self.frame.size.width, self.frame.size.height)];
+    [self addSubview:daysUntilPeriodLabel];
 }
 
 - (void)setupClockIcon
@@ -77,6 +78,15 @@
 - (void)setupDaysUntilPeriod:(NSUInteger)daysUntilPeriod
 {
     self.daysUntilPeriod = daysUntilPeriod;
+    daysUntilPeriodLabel.text = [NSString stringWithFormat:@"Estimated %d days until period.", daysUntilPeriod];
+    currentDayLabel.hidden = YES;
+    daysLeftTillEndLabel.hidden = YES;
+    daysUntilPeriodLabel.hidden = NO;
+}
+
+- (void)setupNoPreviousData
+{
+    daysUntilPeriodLabel.text = @"Welcome to Tracker.";
     currentDayLabel.hidden = YES;
     daysLeftTillEndLabel.hidden = YES;
     daysUntilPeriodLabel.hidden = NO;

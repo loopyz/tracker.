@@ -70,7 +70,7 @@
     [defaults setInteger:0 forKey:kTRPeriodDurationKey];
     [defaults setInteger:0 forKey:kTRNoPeriodDurationKey];
 
-    // clear previous and current periods
+    // clear previous, current, and next periods
     [defaults removeObjectForKey:kTRCurrentPeriodStartDateKey];
     [defaults removeObjectForKey:kTRCurrentPeriodFlowKey];
     [defaults removeObjectForKey:kTRCurrentPeriodPainKey];
@@ -78,6 +78,9 @@
     [defaults removeObjectForKey:kTRPreviousPeriodEndDateKey];
     [defaults removeObjectForKey:kTRPreviousPeriodFlowKey];
     [defaults removeObjectForKey:kTRPreviousPeriodPainKey];
+    
+    [defaults removeObjectForKey:kTRNextPeriodStartDateKey];
+    [defaults removeObjectForKey:kTRNextPeriodDurationKey];
 
     // remove alarms
     NSData *startPeriodAlarmData = [defaults objectForKey:kTRStartPeriodAlarmDataKey];
