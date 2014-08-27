@@ -14,6 +14,7 @@
     UILabel *currentDayLabel;
     UILabel *daysLeftTillEndLabel;
     UILabel *daysUntilPeriodLabel;
+    UILabel *untilPeriod;
 }
 
 @end
@@ -48,10 +49,16 @@
     daysLeftTillEndLabel.font = [Fonts estimatedDaysLeftFont];
     [self addSubview:daysLeftTillEndLabel];
     
-    daysUntilPeriodLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, self.frame.size.width, self.frame.size.height)];
+    daysUntilPeriodLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, self.frame.size.width, self.frame.size.height/1.5f)];
     daysUntilPeriodLabel.textColor = [Colors grayFontColor];
     daysUntilPeriodLabel.font = [Fonts daysUntilPeriodFont];
     [self addSubview:daysUntilPeriodLabel];
+    
+    untilPeriod = [[UILabel alloc] initWithFrame:CGRectMake(70, 70, self.frame.size.width, self.frame.size.height - currentDayLabel.frame.size.height - 70)];
+    untilPeriod.textColor = [Colors grayFontColor];
+    untilPeriod.font = [Fonts daysUntilPeriodFont];
+    untilPeriod.text = @"next period.";
+    [self addSubview:untilPeriod];
 }
 
 - (void)setupClockIcon
@@ -80,18 +87,22 @@
 - (void)setupDaysUntilPeriod:(NSUInteger)daysUntilPeriod
 {
     self.daysUntilPeriod = daysUntilPeriod;
-    daysUntilPeriodLabel.text = [NSString stringWithFormat:@"Estimated %d days until period.", daysUntilPeriod];
+    daysUntilPeriodLabel.text = [NSString stringWithFormat:@"Estimated %d days", daysUntilPeriod];
     currentDayLabel.hidden = YES;
     daysLeftTillEndLabel.hidden = YES;
     daysUntilPeriodLabel.hidden = NO;
+    untilPeriod.hidden = NO;
+    daysUntilPeriodLabel.frame = CGRectMake(70, 0, self.frame.size.width, self.frame.size.height/1.5f);
 }
 
 - (void)setupNoPreviousData
 {
-    daysUntilPeriodLabel.text = @"Welcome to Tracker.";
+    daysUntilPeriodLabel.text = @"Welcome to tracker.";
     currentDayLabel.hidden = YES;
     daysLeftTillEndLabel.hidden = YES;
     daysUntilPeriodLabel.hidden = NO;
+    untilPeriod.hidden = YES;
+    daysUntilPeriodLabel.frame = CGRectMake(70, 0, self.frame.size.width, self.frame.size.height);
 }
 
 /*
