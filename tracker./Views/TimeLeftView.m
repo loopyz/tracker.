@@ -100,10 +100,11 @@
 {
     daysUntilPeriodLabel.text = @"Welcome to tracker.";
     currentDayLabel.hidden = YES;
-    daysLeftTillEndLabel.hidden = YES;
+    daysLeftTillEndLabel.hidden = NO;
+    daysLeftTillEndLabel.text = @"Start your period to collect data";
     daysUntilPeriodLabel.hidden = NO;
     untilPeriod.hidden = YES;
-    daysUntilPeriodLabel.frame = CGRectMake(70, 0, self.frame.size.width, self.frame.size.height);
+    // daysUntilPeriodLabel.frame = CGRectMake(70, 0, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)refreshView:(NSInteger)currentDay remaining:(NSInteger)remaining
