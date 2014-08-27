@@ -17,6 +17,10 @@ extern NSString *const kTRHasBeenLaunchedKey;
 extern const int kTRDefaultPeriodDuration;
 extern const int kTRDefaultNoPeriodDuration;
 extern const int kTRDefaultAlertHour;
+extern const int kTRDefaultDayTimeInterval;
+extern const int kTRMaxPeriodDuration;
+
+#pragma mark - levels
 extern NSString *const kTRPainLow;
 extern NSString *const kTRPainMedium;
 extern NSString *const kTRPainHigh;

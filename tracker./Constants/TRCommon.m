@@ -17,6 +17,10 @@ NSString *const kTRHasBeenLaunchedKey = @"hasBeenLaunched";
 const int kTRDefaultPeriodDuration = 7;
 const int kTRDefaultNoPeriodDuration = 28;
 const int kTRDefaultAlertHour = 9;
+const int kTRDefaultDayTimeInterval = 60*60*24;
+const int kTRMaxPeriodDuration = 14;
+
+#pragma mark - levels
 NSString *const kTRPainLow = @"Low";
 NSString *const kTRPainMedium = @"Medium";
 NSString *const kTRPainHigh = @"High";

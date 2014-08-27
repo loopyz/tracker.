@@ -58,6 +58,12 @@ static const int cellHeight = 68;
         [self initNavBar];
         [self setupStatusView];
         
+        // autoend period if neccessary
+        if ([TRUtil shouldAutoEndPeriod]) {
+            NSLog(@"autoending period now");
+            [TRUtil addPastPeriod:nil];
+        }
+        
         NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
         NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
         NSInteger currentPeriodTimeLeft = 0;
