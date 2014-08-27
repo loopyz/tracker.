@@ -19,6 +19,7 @@
 #import "SetTodaysFlowView.h"
 #import "SetTodaysPainView.h"
 #import "SettingsViewController.h"
+#import "CustomCellTableViewCell.h"
 
 static const int kStatusViewHeight = 52;
 static const int cellHeight = 68;
@@ -230,10 +231,11 @@ static const int cellHeight = 68;
 }
 
 //for each cell in table
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CustomCellTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *MyIdentifier = @"Cell";
-    UITableViewCell *cell;
+    CustomCellTableViewCell *cell;
+    
     if (indexPath.row != 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     }
@@ -244,57 +246,64 @@ static const int cellHeight = 68;
     
     if (cell == nil) {
         if (indexPath.row == 0) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:@"StartEndPeriod"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:@"StartEndPeriod"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else if (indexPath.row == 1) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else if (indexPath.row == 2) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else if (indexPath.row == 3) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthFlow"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthFlow"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else if (indexPath.row == 4) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthPain"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthPain"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         // GAP ROW
         else if(indexPath.row == 5) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Gap"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Gap"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
         
         if (indexPath.row == 0) {
             cell.backgroundColor = [UIColor whiteColor];
-            [cell addSubview:statusView];
+            statusView.tag = 1;
+            [cell.contentView addSubview:statusView];
         }
         else if (indexPath.row  == 1) {
-            [cell addSubview:timeLeftView];
+            timeLeftView.tag = 1;
+            [cell.contentView addSubview:timeLeftView];
         }
         else if (indexPath.row == 2) {
-            [cell addSubview:fertilizationView];
+            fertilizationView.tag = 1;
+            [cell.contentView addSubview:fertilizationView];
         }
         else if (indexPath.row == 3) {
-            [cell addSubview:lastMonthFlowView];
+            lastMonthFlowView.tag = 1;
+            [cell.contentView addSubview:lastMonthFlowView];
         }
         else if (indexPath.row == 4) {
-            [cell addSubview:lastMonthPainView];
+            lastMonthPainView.tag = 1;
+            [cell.contentView addSubview:lastMonthPainView];
         }
         else if (indexPath.row == 6) {
-            [cell addSubview:todayFlowView];
+            todayFlowView.tag = 1;
+            [cell.contentView addSubview:todayFlowView];
         }
         else if (indexPath.row == 7) {
-            [cell addSubview:todayPainView];
+            todayPainView.tag = 1;
+            [cell.contentView addSubview:todayPainView];
         }
         else {
             
@@ -407,7 +416,6 @@ static const int cellHeight = 68;
     todayFlowView.selectionLabel.text = kTRFlowHeavy;
     [popup dismiss:YES];
 }
-
 
 
 @end
