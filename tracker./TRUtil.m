@@ -66,6 +66,18 @@
     return ((startDate != nil) && ([self daysBetween:startDate and:[NSDate date]] > kTRMaxPeriodDuration));
 }
 
++ (NSDictionary *)computeFertility
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *fertility = @{@"state":@0, @"caption":@"N/A"};
+    NSDate *todayDate = [NSDate date];
+    
+    NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
+    NSInteger duration = 0;
+    
+    return fertility;
+}
+
 + (void)resetDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

@@ -10,4 +10,6 @@
 
 @interface TodayFlowView : RegularCellView
 
+- (void)refreshView:(NSString *)flow;
+
 @end

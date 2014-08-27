@@ -15,4 +15,5 @@
     #import <Foundation/Foundation.h>
     #import "Constants/TRCommon.h"
     #import "TRUtil.h"
+    #import "Colors.h"
 #endif

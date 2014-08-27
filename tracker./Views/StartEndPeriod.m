@@ -17,6 +17,7 @@ static const int kStatusViewHeight = 52;
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = [Colors mainColor];
         [self setupTextLabel];
     }
     return self;
@@ -31,6 +32,16 @@ static const int kStatusViewHeight = 52;
     [self addSubview:self.status];
 }
 
+- (void)refreshView:(BOOL)periodStarted
+{
+    if (periodStarted) {
+        self.status.text = @"Tap to end period";
+        self.backgroundColor = [Colors endPeriodColor];
+    } else {
+        self.status.text = @"Tap to start period";
+        self.backgroundColor = [Colors mainColor];
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

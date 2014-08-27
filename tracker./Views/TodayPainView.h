@@ -10,4 +10,6 @@
 
 @interface TodayPainView : RegularCellView
 
+- (void)refreshView:(NSString *)pain;
+
 @end

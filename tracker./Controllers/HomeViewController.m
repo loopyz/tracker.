@@ -8,7 +8,6 @@
 
 #import "HomeViewController.h"
 #import "KLCPopup.h"
-#import "Colors.h"
 #import "StartEndPeriod.h"
 #import "TimeLeftView.h"
 #import "FertilizationView.h"
@@ -50,13 +49,12 @@ static const int cellHeight = 68;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
-        // get and process data from nsuserdefaults
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        periodStarted = ([defaults objectForKey:kTRPreviousPeriodEndDateKey] != nil);
-        
         [self initNavBar];
         [self setupStatusView];
+        [self setupTimeLeftView];
+        [self setupFertilizationView];
+        [self setupLastMonthViews];
+        [self setupTodaysViews];
         
         // autoend period if neccessary
         if ([TRUtil shouldAutoEndPeriod]) {
@@ -64,30 +62,9 @@ static const int cellHeight = 68;
             [TRUtil addPastPeriod:nil];
         }
         
-        NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
-        NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
-        NSInteger currentPeriodTimeLeft = 0;
-        NSInteger currentPeriodCurrentDay = 0;
-        if (startDate != nil) {
-            NSInteger currentPeriodDuration = [defaults integerForKey:kTRNextPeriodDurationKey];
-            currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:[startDate dateByAddingTimeInterval:60*60*24*currentPeriodDuration]];
-            currentPeriodCurrentDay = currentPeriodDuration - currentPeriodTimeLeft;
-        } else if (nextDate != nil) {
-            currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:nextDate];
-        }
-        [self setupTimeLeftView:currentPeriodCurrentDay remaining:currentPeriodTimeLeft];
-        
-        // TODO: figure out fertility schedules
-        [self setupFertilizationView:1];
-        
-        NSString *previousPeriodFlow = [defaults stringForKey:kTRPreviousPeriodFlowKey];
-        NSString *previousPeriodPain = [defaults stringForKey:kTRPreviousPeriodPainKey];
-        [self setupLastMonthViews:previousPeriodFlow pain:previousPeriodPain];
-
-        NSString *currentPeriodFlow = [defaults stringForKey:kTRCurrentPeriodFlowKey];
-        NSString *currentPeriodPain = [defaults stringForKey:kTRCurrentPeriodPainKey];
-        [self setupTodaysViews:currentPeriodFlow pain:currentPeriodPain];
-        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        periodStarted = ([defaults objectForKey:kTRPreviousPeriodEndDateKey] != nil);
+        [self updateAllSubViews];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return self;
@@ -137,7 +114,7 @@ static const int cellHeight = 68;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setupTodaysViews:(NSString *)flow pain:(NSString *)pain
+- (void)setupTodaysViews
 {
     todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
     todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
@@ -145,78 +122,79 @@ static const int cellHeight = 68;
     setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView.delegate = self;
     setTodaysFlowView.delegate = self;
-    
-    if (pain) {
-        todayPainView.selectionLabel.text = pain;
-    }
-    
-    if (flow) {
-        todayFlowView.selectionLabel.text = flow;
-    }
 }
 
-- (void)setupLastMonthViews:(NSString *)flow pain:(NSString *)pain
+- (void)setupLastMonthViews
 {
-    if (flow == nil) {
-        flow = @"N/A";
-    }
-    
-    if (pain == nil) {
-        pain = @"N/A";
-    }
-    
-    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:flow];
-    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withPain:pain];
+    lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
+    lastMonthPainView = [[LastMonthPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
 }
 
-- (void)setupFertilizationView:(NSInteger)fertilizationState
+- (void)setupFertilizationView
 {
-    fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFertilizationState:fertilizationState];
-    
+    fertilizationView = [[FertilizationView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
 }
 
-- (void)setupTimeLeftView:(NSInteger)currentDay remaining:(NSInteger)remaining
+- (void)setupTimeLeftView
 {
-    // todo: first time using the app (currentDay and remaining are both 0)
-
-    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) isOnPeriod:periodStarted];
-    
-    if ((currentDay == 0) && (remaining == 0)) { // first time using app
-        [timeLeftView setupNoPreviousData];
-    } else if (currentDay == 0) { // period hasn't started yet
-        [timeLeftView setupDaysUntilPeriod:remaining];
-    } else { // period has started
-        [timeLeftView setupCurrentDayOfPeriod:currentDay];
-        [timeLeftView setupDaysLeftTillEnd:remaining];
-    }
+    timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
 }
 
 - (void)setupStatusView
 {
     statusView = [[StartEndPeriod alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kStatusViewHeight)];
-    
-    // TODO: change background based on whether period is started or not
-    statusView.backgroundColor = [Colors mainColor];
-    
-    // setup status label
-    statusView.status.text = @"Tap to start period";
 }
 
 - (void)startPeriodTouched:(NSDate *)date
 {
-    statusView.status.text = @"Tap to end period";
-    statusView.backgroundColor = [Colors endPeriodColor];
     periodStarted = YES;
     NSLog(@"dat e%@", date);
     [TRUtil addCurrentPeriod:date];
+
+    [self updateAllSubViews];
 }
 
 - (void)endPeriodTouched:(NSDate *)date
 {
-    statusView.status.text = @"Tap to start period";
-    statusView.backgroundColor = [Colors mainColor];
     periodStarted = NO;
     [TRUtil addPastPeriod:date];
+    [self updateAllSubViews];
+}
+
+- (void)updateAllSubViews
+{
+    // get and process data from nsuserdefaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    // update status view
+    [statusView refreshView:periodStarted];
+    
+    // update time left view
+    NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
+    NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
+    NSInteger currentPeriodTimeLeft = 0;
+    NSInteger currentPeriodCurrentDay = 0;
+    if (startDate != nil) {
+        NSInteger currentPeriodDuration = [defaults integerForKey:kTRNextPeriodDurationKey];
+        currentPeriodDuration = (currentPeriodDuration == 0) ? kTRDefaultPeriodDuration : currentPeriodDuration;
+        currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:[startDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*currentPeriodDuration]] - 1;
+        currentPeriodCurrentDay = currentPeriodDuration - currentPeriodTimeLeft;
+    } else if (nextDate != nil) {
+        currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:nextDate];
+    }
+
+    [timeLeftView refreshView:currentPeriodCurrentDay remaining:currentPeriodTimeLeft];
+    
+    // update fertilization view
+    [fertilizationView refreshView:[TRUtil computeFertility]];
+
+    // update last month views
+    [lastMonthFlowView refreshView:[defaults stringForKey:kTRPreviousPeriodFlowKey]];
+    [lastMonthPainView refreshView:[defaults stringForKey:kTRPreviousPeriodPainKey]];
+    
+    // update current period views
+    [todayFlowView refreshView:[defaults stringForKey:kTRCurrentPeriodFlowKey]];
+    [todayPainView refreshView:[defaults stringForKey:kTRCurrentPeriodPainKey]];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -422,6 +400,5 @@ static const int cellHeight = 68;
     todayFlowView.selectionLabel.text = kTRFlowHeavy;
     [popup dismiss:YES];
 }
-
 
 @end

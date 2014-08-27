@@ -18,10 +18,18 @@
         // Initialization code
         self.backgroundColor = [Colors darkRed];
         self.headerLabel.text = @"Today's pain:";
-        self.selectionLabel.text = @"Tap to set";
         [self setIcon:[UIImage imageNamed:@"lightningicon.png"] withWidth:29 withHeight:44];
     }
     return self;
+}
+
+- (void)refreshView:(NSString *)pain
+{
+    if (pain == nil) {
+        self.selectionLabel.text = @"Tap to set";
+    } else {
+        self.selectionLabel.text = pain;
+    }
 }
 
 /*

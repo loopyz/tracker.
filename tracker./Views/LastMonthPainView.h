@@ -10,5 +10,5 @@
 
 @interface LastMonthPainView : RegularCellView
 
-- (id)initWithFrame:(CGRect)frame withPain:(NSString *)pain;
+- (void)refreshView:(NSString *)pain;
 @end

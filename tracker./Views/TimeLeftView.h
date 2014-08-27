@@ -14,11 +14,9 @@
 @property NSUInteger currentDay;
 @property NSUInteger daysUntilPeriod;
 
-
-
-- (id)initWithFrame:(CGRect)frame isOnPeriod:(BOOL)onPeriod;
 - (void)setupCurrentDayOfPeriod:(NSUInteger)currentDay;
 - (void)setupDaysLeftTillEnd:(NSUInteger)daysLeft;
 - (void)setupDaysUntilPeriod:(NSUInteger)daysUntilPeriod;
 - (void)setupNoPreviousData;
+- (void)refreshView:(NSInteger)currentDay remaining:(NSInteger)remaining;
 @end

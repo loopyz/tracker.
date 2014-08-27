@@ -11,7 +11,6 @@
 #import "Fonts.h"
 
 @interface FertilizationView() {
-    NSUInteger fertilizationChance;
     UILabel *statusLabel;
     UILabel *dateLabel;
 }
@@ -20,18 +19,24 @@
 
 @implementation FertilizationView
 
-- (id)initWithFrame:(CGRect)frame withFertilizationState:(NSUInteger)fertilizationState
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        fertilizationChance = fertilizationState;
-        [self setupBackgroundColor];
         [self setupIcon];
         [self setupLabelAttributes];
-        [self setupStatus];
     }
     return self;
+}
+
+- (void)refreshView:(NSDictionary *)fertility
+{
+    NSUInteger fertilizationChance = (NSUInteger)[fertility objectForKey:@"state"];
+    NSString *caption = [fertility objectForKey:@"caption"];
+
+    [self setupBackgroundColor:fertilizationChance];
+    [self setupStatus:fertilizationChance andCaption:caption];
 }
 
 - (void)setupIcon
@@ -42,7 +47,7 @@
 
 }
 
-- (void)setupBackgroundColor
+- (void)setupBackgroundColor:(NSUInteger)fertilizationChance
 {
     switch (fertilizationChance) {
         case 1:
@@ -58,6 +63,7 @@
             break;
             
         default:
+            self.backgroundColor = [UIColor darkGrayColor];
             break;
     }
 }
@@ -75,27 +81,26 @@
     [self addSubview:dateLabel];
 }
 
-- (void)setupStatus
+- (void)setupStatus:(NSUInteger)fertilizationChance andCaption:(NSString *)caption
 {
     switch (fertilizationChance) {
         case 1:
             statusLabel.text = @"Low pregnancy chance.";
-            dateLabel.text = @"Sept 7 - 12";
             break;
             
         case 2:
             statusLabel.text = @"Mid pregnancy chance";
-            dateLabel.text = @"Sept 7 - 12";
             break;
             
         case 3:
             statusLabel.text = @"High pregnancy chance";
-            dateLabel.text = @"Sept 7 - 12";
             break;
             
         default:
+            statusLabel.text = @"Pregnancy chance";
             break;
     }
+    dateLabel.text = caption;
 }
 
 /*

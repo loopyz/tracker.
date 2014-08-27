@@ -10,6 +10,5 @@
 
 @interface LastMonthFlow : RegularCellView
 
-
-- (id)initWithFrame:(CGRect)frame withFlow:(NSString *)flow;
+- (void)refreshView:(NSString *)flow;
 @end

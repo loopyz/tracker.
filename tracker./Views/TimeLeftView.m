@@ -21,7 +21,7 @@
 
 @implementation TimeLeftView
 
-- (id)initWithFrame:(CGRect)frame isOnPeriod:(BOOL)onPeriod
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -29,10 +29,10 @@
         self.backgroundColor = [Colors daysLeftColor];
         [self setupClockIcon];
         [self setupLabelAttributes];
-        daysLeftTillEndLabel.hidden = !onPeriod;
-        currentDayLabel.hidden = !onPeriod;
-        daysUntilPeriodLabel.hidden = onPeriod;
-        
+        daysLeftTillEndLabel.hidden = YES;
+        currentDayLabel.hidden = YES;
+        daysUntilPeriodLabel.hidden = YES;
+        untilPeriod.hidden = YES;
     }
     return self;
 }
@@ -57,7 +57,7 @@
     untilPeriod = [[UILabel alloc] initWithFrame:CGRectMake(70, 70, self.frame.size.width, self.frame.size.height - currentDayLabel.frame.size.height - 70)];
     untilPeriod.textColor = [Colors grayFontColor];
     untilPeriod.font = [Fonts daysUntilPeriodFont];
-    untilPeriod.text = @"next period.";
+    untilPeriod.text = @"until next period.";
     [self addSubview:untilPeriod];
 }
 
@@ -82,6 +82,7 @@
     daysLeftTillEndLabel.text = [NSString stringWithFormat:@"Estimated %d days left until end.", daysLeft];
     daysLeftTillEndLabel.hidden = NO;
     daysUntilPeriodLabel.hidden = YES;
+    untilPeriod.hidden = YES;
 }
 
 - (void)setupDaysUntilPeriod:(NSUInteger)daysUntilPeriod
@@ -103,6 +104,18 @@
     daysUntilPeriodLabel.hidden = NO;
     untilPeriod.hidden = YES;
     daysUntilPeriodLabel.frame = CGRectMake(70, 0, self.frame.size.width, self.frame.size.height);
+}
+
+- (void)refreshView:(NSInteger)currentDay remaining:(NSInteger)remaining
+{
+    if ((currentDay == 0) && (remaining == 0)) { // first time using app
+        [self setupNoPreviousData];
+    } else if (currentDay == 0) { // period hasn't started yet
+        [self setupDaysUntilPeriod:remaining];
+    } else { // period has started
+        [self setupCurrentDayOfPeriod:currentDay];
+        [self setupDaysLeftTillEnd:remaining];
+    }
 }
 
 /*

@@ -10,4 +10,5 @@
 
 @interface StartEndPeriod : UIView
 @property UILabel *status;
+- (void)refreshView:(BOOL)periodStarted;
 @end

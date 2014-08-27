@@ -18,10 +18,18 @@
         // Initialization code
         self.backgroundColor = [Colors darkBlue];
         self.headerLabel.text = @"Today's flow:";
-        self.selectionLabel.text = @"Tap to set";
         [self setIcon:[UIImage imageNamed:@"raindropicon.png"] withWidth:24 withHeight:36];
     }
     return self;
+}
+
+- (void)refreshView:(NSString *)flow
+{
+    if (flow == nil) {
+        self.selectionLabel.text = @"Tap to set";
+    } else {
+        self.selectionLabel.text = flow;
+    }
 }
 
 /*
