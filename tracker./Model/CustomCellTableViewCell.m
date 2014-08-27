@@ -7,6 +7,7 @@
 //
 
 #import "CustomCellTableViewCell.h"
+#import "StartEndPeriod.h"
 
 @implementation CustomCellTableViewCell
 
@@ -34,6 +35,11 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.contentView viewWithTag:1].frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    if ([[self.contentView viewWithTag:1] class] == [StartEndPeriod class]) {
+        StartEndPeriod *view;
+        view = (StartEndPeriod *) [self.contentView viewWithTag:1];
+        view.status.frame = CGRectMake(0, 0, self.frame.size.width, 52);
+    }
 }
 
 @end
