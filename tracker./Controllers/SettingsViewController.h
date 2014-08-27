@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "FXForms.h"
 
+@class SettingsObject;
+@class FKFormModel;
 
-@interface SettingsViewController : FXFormViewController
+//@interface SettingsViewController : FXFormViewController
+@interface SettingsViewController : UITableViewController
 
+@property (nonatomic, strong) FKFormModel *formModel;
+@property (nonatomic, strong) SettingsObject *settingsObject;
 
 @end
 

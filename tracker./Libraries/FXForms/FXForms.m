@@ -2981,6 +2981,8 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 @interface FXFormDatePickerCell ()
 
 @property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+
 
 @end
 

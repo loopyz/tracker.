@@ -48,7 +48,9 @@
     daysLeftTillEndLabel.font = [Fonts estimatedDaysLeftFont];
     [self addSubview:daysLeftTillEndLabel];
     
-    daysUntilPeriodLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, self.frame.size.width, self.frame.size.height)];
+    daysUntilPeriodLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, self.frame.size.width, self.frame.size.height)];
+    daysUntilPeriodLabel.textColor = [Colors grayFontColor];
+    daysUntilPeriodLabel.font = [Fonts daysUntilPeriodFont];
     [self addSubview:daysUntilPeriodLabel];
 }
 
