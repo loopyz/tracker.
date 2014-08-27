@@ -20,15 +20,6 @@
     }
 }
 
-+ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
-{
-    NSUInteger unitFlags = NSDayCalendarUnit;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
-    NSInteger daysBetween = abs([components day]);
-    return daysBetween+1;
-}
-
 + (NSDate *)convertDate:(NSDate *)date withHours:(NSInteger)hour
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -58,6 +49,23 @@
 }
 
 #pragma mark - main methods
++ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
+{
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    NSInteger daysBetween = abs([components day]);
+    return daysBetween+1;
+}
+
++ (BOOL)shouldAutoEndPeriod
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
+    
+    return ((startDate != nil) && ([self daysBetween:startDate and:[NSDate date]] > kTRMaxPeriodDuration));
+}
+
 + (void)resetDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -134,13 +142,24 @@
     
     // compute current period values
     NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
-    NSInteger currentPeriodDuration = [self daysBetween:startDate and:endDate];
+    NSInteger currentPeriodDuration = (endDate == nil) ? 0 : [self daysBetween:startDate and:endDate];
     
     // get past records
+    NSInteger numPeriods = [defaults integerForKey:kTRNumPeriodsKey] + 1;
     NSInteger periodDuration = [defaults integerForKey:kTRPeriodDurationKey] + currentPeriodDuration;
     NSInteger noPeriodDuration = [defaults integerForKey:kTRNoPeriodDurationKey];
-    NSInteger numPeriods = [defaults integerForKey:kTRNumPeriodsKey] + 1;
     
+    // handle cases where endDate is nil (autoending period)
+    if (endDate == nil) {
+        if (numPeriods == 1) { // first period - no past records
+            periodDuration += kTRDefaultPeriodDuration;
+            endDate = [startDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*kTRDefaultPeriodDuration];
+        } else { //use avg of past records
+            periodDuration += periodDuration/(numPeriods-1);
+            endDate = [startDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*(periodDuration/(numPeriods - 1))];
+        }
+    }
+
     // update past records
     [defaults setInteger:periodDuration forKey:kTRPeriodDurationKey];
     [defaults setInteger:numPeriods forKey:kTRNumPeriodsKey];
@@ -160,9 +179,9 @@
     
     // predict next period
     NSInteger startPeriodAlarmHour = [defaults integerForKey:kTRStartPeriodAlarmHourKey];
-    NSInteger nextDuration = ((numPeriods == 0) || (periodDuration == 0))? kTRDefaultPeriodDuration : periodDuration/numPeriods;
-    NSInteger nextNoPeriodDuration = ((numPeriods == 0) || (noPeriodDuration == 0))? kTRDefaultNoPeriodDuration : noPeriodDuration/numPeriods;
-    NSDate *nextStartDate = [endDate dateByAddingTimeInterval:60*60*24*nextNoPeriodDuration];
+    NSInteger nextDuration = (periodDuration == 0) ? kTRDefaultPeriodDuration : periodDuration/numPeriods;
+    NSInteger nextNoPeriodDuration = (noPeriodDuration == 0) ? kTRDefaultNoPeriodDuration : noPeriodDuration/numPeriods;
+    NSDate *nextStartDate = [endDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*nextNoPeriodDuration];
 
     [defaults setObject:nextStartDate forKey:kTRNextPeriodStartDateKey];
     [defaults setInteger:nextDuration forKey:kTRNextPeriodDurationKey];
@@ -253,7 +272,7 @@
     
     // create fire date
     NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
-    NSDate *priorXTimeDate = [nextDate dateByAddingTimeInterval:-day*24*60*60];
+    NSDate *priorXTimeDate = [nextDate dateByAddingTimeInterval:-day*kTRDefaultDayTimeInterval];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
     [calendar setTimeZone:timeZone];

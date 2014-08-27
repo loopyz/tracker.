@@ -10,6 +10,9 @@
 
 @interface TRUtil : NSObject
 
++ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
++ (BOOL)shouldAutoEndPeriod;
+
 + (void)resetDefaults;
 
 + (void)addCurrentPeriod:(NSDate *)startDate;
@@ -23,7 +26,5 @@
 
 + (void)setStartPeriodAlarm:(NSInteger)day hour:(NSInteger)hour;
 + (void)removeStartPeriodAlarm;
-
-+ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 @end
