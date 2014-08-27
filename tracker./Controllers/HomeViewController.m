@@ -195,6 +195,9 @@ static const int cellHeight = 68;
     // update current period views
     [todayFlowView refreshView:[defaults stringForKey:kTRCurrentPeriodFlowKey]];
     [todayPainView refreshView:[defaults stringForKey:kTRCurrentPeriodPainKey]];
+    
+    // reload table
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -204,7 +207,11 @@ static const int cellHeight = 68;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    if (periodStarted) {
+        return 8;
+    } else {
+        return 6; // hide today's pain and flow views
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -216,15 +223,24 @@ static const int cellHeight = 68;
 
 //for each cell in table
 - (CustomCellTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *MyIdentifier = @"Cell";
     CustomCellTableViewCell *cell;
     
-    if (indexPath.row != 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-    }
-    else {
+    if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"StartEndPeriod"];
+    } else if (indexPath.row == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TimeLeft"];
+    } else if (indexPath.row == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Fertilization"];
+    } else if (indexPath.row == 3) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"LastMonthFlow"];
+    } else if (indexPath.row == 4) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"LastMonthPain"];
+    } else if (indexPath.row == 5) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Gap"];
+    } else if (indexPath.row == 6) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TodayFlow"];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TodayPain"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -232,71 +248,46 @@ static const int cellHeight = 68;
         if (indexPath.row == 0) {
             cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:@"StartEndPeriod"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = [UIColor whiteColor];
+            [cell.contentView addSubview:statusView];
         }
         else if (indexPath.row == 1) {
             cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:timeLeftView];
         }
         else if (indexPath.row == 2) {
-            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimeLeft"];
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Fertilization"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:fertilizationView];
         }
         else if (indexPath.row == 3) {
             cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthFlow"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:lastMonthFlowView];
         }
         else if (indexPath.row == 4) {
             cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LastMonthPain"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:lastMonthPainView];
         }
         // GAP ROW
         else if(indexPath.row == 5) {
             cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Gap"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        else {
-            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+        else if(indexPath.row == 6){
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TodayFlow"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-        }
-        
-        if (indexPath.row == 0) {
-            cell.backgroundColor = [UIColor whiteColor];
-            statusView.tag = 1;
-            [cell.contentView addSubview:statusView];
-        }
-        else if (indexPath.row  == 1) {
-            timeLeftView.tag = 1;
-            [cell.contentView addSubview:timeLeftView];
-        }
-        else if (indexPath.row == 2) {
-            fertilizationView.tag = 1;
-            [cell.contentView addSubview:fertilizationView];
-        }
-        else if (indexPath.row == 3) {
-            lastMonthFlowView.tag = 1;
-            [cell.contentView addSubview:lastMonthFlowView];
-        }
-        else if (indexPath.row == 4) {
-            lastMonthPainView.tag = 1;
-            [cell.contentView addSubview:lastMonthPainView];
-        }
-        else if (indexPath.row == 6) {
-            todayFlowView.tag = 1;
             [cell.contentView addSubview:todayFlowView];
-        }
-        else if (indexPath.row == 7) {
-            todayPainView.tag = 1;
+            
+        } else {
+            cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TodayPain"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.contentView addSubview:todayPainView];
         }
-        else {
-            
-            
-            
-        }
     }
-    
-    
+
     return cell;
 }
 
