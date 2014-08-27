@@ -80,7 +80,7 @@
         [formMapping mapAttribute:@"numDaysBeforePeriodNotif" title:@"Days before Notification" type:FKFormAttributeMappingTypeInteger];
 
         
-        [formMapping sectionWithTitle:@"More Options" identifier:@"customCells"];
+        [formMapping sectionWithTitle:@"More Options" footer:@"hello" identifier:@"customCells"];
         
 //        [formMapping mapCustomCell:[FKDisclosureIndicatorAccessoryField class]
 //                        identifier:@"custom"
@@ -119,6 +119,7 @@
                   
               }];
         
+
         
 //        [formMapping sectionWithTitle:@"Buttons" identifier:@"saveButton"];
 //        

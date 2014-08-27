@@ -27,6 +27,7 @@
 #import "FKFormAttributeValidation.h"
 #import "FKFieldErrorProtocol.h"
 #import "FKFieldStyleProtocol.h"
+#import "Colors.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,6 +347,7 @@
         
     } else if ([field isKindOfClass:[FKSwitchField class]]) {
         UISwitch *switchControl = [(FKSwitchField *)field switchControl];
+        [switchControl setOnTintColor:[Colors mainColor]];
         switchControl.on = [(NSNumber *)convertedValue boolValue];
         switchControl.formAttributeMapping = attributeMapping;
         [switchControl addTarget:self
@@ -727,6 +729,8 @@
     return [cellClass fk_cellForTableView:self.tableView
                             configureCell:self.formModel.configureCellsBlock];
 }
+
+
 
 
 @end

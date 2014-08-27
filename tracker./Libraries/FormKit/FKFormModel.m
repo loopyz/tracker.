@@ -29,6 +29,7 @@
 #import "BWLongTextViewController.h"
 #import "FKTitleHeaderView.h"
 #import "FKTitleHeaderViewProtocol.h"
+#import "Colors.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -330,6 +331,7 @@
             CGFloat height = [headerViewWithProtocol heightForHeaderConstrainedByWidth:frame.size.width];
             frame.size.height = height;
             headerViewWithProtocol.frame = frame;
+            headerViewWithProtocol.backgroundColor = [Colors daysLeftColor];
             return headerViewWithProtocol;
         }
     }
@@ -352,6 +354,7 @@
     
     tableView.dataSource = self;
     tableView.delegate = self;
+    tableView.backgroundColor = [Colors daysLeftColor];
 }
 
 
@@ -392,6 +395,13 @@
     return [self numberOfRowsInSection:section];
 }
 
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] init];
+//    
+//    return view;
+//}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -407,7 +417,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [self headerWithViewClass:self.bottomHeaderViewClass title:[self titleForFooterInSection:section]];
+    // return [self headerWithViewClass:self.bottomHeaderViewClass title:[self titleForFooterInSection:section]];
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [Colors daysLeftColor];
+    return view;
 }
 
 
