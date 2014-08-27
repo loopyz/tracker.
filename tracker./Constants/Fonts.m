@@ -22,7 +22,7 @@
 
 + (UIFont *)daysUntilPeriodFont
 {
-    return [UIFont fontWithName:@"Avenir" size:28.0f];
+    return [UIFont fontWithName:@"Avenir" size:23.0f];
 }
 
 + (UIFont *)mainCategoryFont

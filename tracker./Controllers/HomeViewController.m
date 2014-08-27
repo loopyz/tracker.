@@ -57,13 +57,16 @@ static const int cellHeight = 68;
         [self initNavBar];
         [self setupStatusView];
         
-        NSInteger currentPeriodDuration = [defaults integerForKey:kTRNextPeriodDurationKey];
         NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
-        NSInteger currentPeriodTimeLeft = currentPeriodDuration;
+        NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
+        NSInteger currentPeriodTimeLeft = 0;
         NSInteger currentPeriodCurrentDay = 0;
         if (startDate != nil) {
+            NSInteger currentPeriodDuration = [defaults integerForKey:kTRNextPeriodDurationKey];
             currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:[startDate dateByAddingTimeInterval:60*60*24*currentPeriodDuration]];
             currentPeriodCurrentDay = currentPeriodDuration - currentPeriodTimeLeft;
+        } else if (nextDate != nil) {
+            currentPeriodTimeLeft = [TRUtil daysBetween:[NSDate date] and:nextDate];
         }
         [self setupTimeLeftView:currentPeriodCurrentDay remaining:currentPeriodTimeLeft];
         
@@ -74,7 +77,9 @@ static const int cellHeight = 68;
         NSString *previousPeriodPain = [defaults stringForKey:kTRPreviousPeriodPainKey];
         [self setupLastMonthViews:previousPeriodFlow pain:previousPeriodPain];
 
-        [self setupTodaysViews];
+        NSString *currentPeriodFlow = [defaults stringForKey:kTRCurrentPeriodFlowKey];
+        NSString *currentPeriodPain = [defaults stringForKey:kTRCurrentPeriodPainKey];
+        [self setupTodaysViews:currentPeriodFlow pain:currentPeriodPain];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -125,7 +130,7 @@ static const int cellHeight = 68;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setupTodaysViews
+- (void)setupTodaysViews:(NSString *)flow pain:(NSString *)pain
 {
     todayFlowView = [[TodayFlowView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
     todayPainView = [[TodayPainView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight)];
@@ -133,17 +138,24 @@ static const int cellHeight = 68;
     setTodaysPainView = [[SetTodaysPainView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 200)];
     setTodaysPainView.delegate = self;
     setTodaysFlowView.delegate = self;
+    
+    if (pain) {
+        todayPainView.selectionLabel.text = pain;
+    }
+    
+    if (flow) {
+        todayFlowView.selectionLabel.text = flow;
+    }
 }
 
 - (void)setupLastMonthViews:(NSString *)flow pain:(NSString *)pain
 {
-    // todo: deal w/ user's first time using the app (there won't be any last month data)
     if (flow == nil) {
-        flow = kTRFlowLight;
+        flow = @"N/A";
     }
     
     if (pain == nil) {
-        pain = kTRPainHigh;
+        pain = @"N/A";
     }
     
     lastMonthFlowView = [[LastMonthFlow alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) withFlow:flow];
@@ -158,10 +170,18 @@ static const int cellHeight = 68;
 
 - (void)setupTimeLeftView:(NSInteger)currentDay remaining:(NSInteger)remaining
 {
-    // todo: if currentDay == 0 (i.e. period hasn't started yet)
+    // todo: first time using the app (currentDay and remaining are both 0)
+
     timeLeftView = [[TimeLeftView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, cellHeight) isOnPeriod:periodStarted];
-    [timeLeftView setupCurrentDayOfPeriod:currentDay];
-    [timeLeftView setupDaysLeftTillEnd:remaining];
+    
+    if ((currentDay == 0) && (remaining == 0)) { // first time using app
+        [timeLeftView setupNoPreviousData];
+    } else if (currentDay == 0) { // period hasn't started yet
+        [timeLeftView setupDaysUntilPeriod:remaining];
+    } else { // period has started
+        [timeLeftView setupCurrentDayOfPeriod:currentDay];
+        [timeLeftView setupDaysLeftTillEnd:remaining];
+    }
 }
 
 - (void)setupStatusView
@@ -352,19 +372,19 @@ static const int cellHeight = 68;
 
 - (void)setHighPain
 {
-    todayPainView.selectionLabel.text = @"High";
+    todayPainView.selectionLabel.text = kTRPainHigh;
     [popup dismiss:YES];
 }
 
 - (void)setLowPain
 {
-    todayPainView.selectionLabel.text = @"Low";
+    todayPainView.selectionLabel.text = kTRPainLow;
     [popup dismiss:YES];
 }
 
 - (void)setMediumPain
 {
-    todayPainView.selectionLabel.text = @"Medium";
+    todayPainView.selectionLabel.text = kTRPainMedium;
     [popup dismiss:YES];
 }
 
@@ -372,19 +392,19 @@ static const int cellHeight = 68;
 
 - (void)setLightFlow
 {
-    todayFlowView.selectionLabel.text = @"Light";
+    todayFlowView.selectionLabel.text = kTRFlowLight;
     [popup dismiss:YES];
 }
 
 - (void)setMediumFlow
 {
-   todayFlowView.selectionLabel.text = @"Medium";
+   todayFlowView.selectionLabel.text = kTRFlowMedium;
     [popup dismiss:YES];
 }
 
 - (void)setHeavyFlow
 {
-    todayFlowView.selectionLabel.text = @"Heavy";
+    todayFlowView.selectionLabel.text = kTRFlowHeavy;
     [popup dismiss:YES];
 }
 
