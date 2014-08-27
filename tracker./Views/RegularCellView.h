@@ -12,7 +12,8 @@
 
 @property (strong, nonatomic) UILabel *headerLabel;
 @property (strong, nonatomic) UILabel *selectionLabel;
+@property (strong, nonatomic) UIImageView *iconView;
 
-- (void)setIcon:(UIImage *)iconImage;
+- (void)setIcon:(UIImage *)iconImage withWidth:(NSUInteger)width withHeight:(NSUInteger)height;
 
 @end

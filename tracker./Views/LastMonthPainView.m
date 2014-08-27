@@ -19,7 +19,7 @@
         self.backgroundColor = [Colors lightRed];
         self.headerLabel.text = @"Last month's pain:";
         self.selectionLabel.text = pain;
-        [self setIcon:[UIImage imageNamed:@"lightningicon.png"]];
+        [self setIcon:[UIImage imageNamed:@"lightningicon.png"] withWidth:29 withHeight:44];
     }
     return self;
 }

@@ -19,7 +19,7 @@
         self.backgroundColor = [Colors darkRed];
         self.headerLabel.text = @"Today's pain:";
         self.selectionLabel.text = @"Tap to set";
-        [self setIcon:[UIImage imageNamed:@"lightningicon.png"]];
+        [self setIcon:[UIImage imageNamed:@"lightningicon.png"] withWidth:29 withHeight:44];
     }
     return self;
 }

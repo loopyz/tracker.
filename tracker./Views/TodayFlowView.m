@@ -19,7 +19,7 @@
         self.backgroundColor = [Colors darkBlue];
         self.headerLabel.text = @"Today's flow:";
         self.selectionLabel.text = @"Tap to set";
-        [self setIcon:[UIImage imageNamed:@"raindropicon.png"]];
+        [self setIcon:[UIImage imageNamed:@"raindropicon.png"] withWidth:24 withHeight:36];
     }
     return self;
 }

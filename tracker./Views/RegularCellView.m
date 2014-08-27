@@ -34,11 +34,11 @@
     [self addSubview:self.selectionLabel];
 }
 
-- (void)setIcon:(UIImage *)iconImage
+- (void)setIcon:(UIImage *)iconImage withWidth:(NSUInteger)width withHeight:(NSUInteger)height
 {
-    UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 38, 38)];
-    icon.image = iconImage;
-    [self addSubview:icon];
+    self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 15, width, height)];
+    self.iconView.image = iconImage;
+    [self addSubview:self.iconView];
 }
 
 @end
