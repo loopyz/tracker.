@@ -48,6 +48,30 @@
     return [NSKeyedArchiver archivedDataWithRootObject:localNotif];
 }
 
++ (NSString *)createDateStr:(NSDate *)dt1 and:(NSDate *)dt2
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger desiredComponents = (NSMonthCalendarUnit | NSYearCalendarUnit);
+    NSDateComponents *dtc1 = [calendar components:desiredComponents fromDate:dt1];
+    NSDateComponents *dtc2 = [calendar components:desiredComponents fromDate:dt2];
+    NSString *firstPart = @"";
+    NSString *secondPart = @"";
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    
+    if (([dtc1 year] == [dtc2 year]) && ([dtc1 month] == [dtc2 month])) { // same month
+        [format setDateFormat:@"MMM d"];
+        firstPart = [format stringFromDate:dt1];
+        [format setDateFormat:@"d"];
+        secondPart = [format stringFromDate:dt2];
+    } else {
+        [format setDateFormat:@"MMM d"];
+        firstPart = [format stringFromDate:dt1];
+        secondPart = [format stringFromDate:dt2];
+    }
+
+    return [NSString stringWithFormat:@"%@-%@", firstPart, secondPart];
+}
+
 #pragma mark - main methods
 + (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
 {
@@ -71,10 +95,15 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *fertility = @{@"state":@0, @"caption":@"N/A"};
     NSDate *todayDate = [NSDate date];
+    NSInteger sumPastNumPeriods = [defaults integerForKey:kTRNumPeriodsKey];
     
-    NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
-    NSInteger duration = 0;
-    
+    if (sumPastNumPeriods <= 0) { // first time using app
+        return fertility;
+    } else {
+        [fertility setValue:@1 forKeyPath:@"state"];
+        [fertility setValue:[self createDateStr:todayDate and:todayDate] forKeyPath:@"caption"];
+    }
+
     return fertility;
 }
 
