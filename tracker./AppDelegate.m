@@ -70,4 +70,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(NSDictionary *)userInfo
+{
+    if (application.applicationState == UIApplicationStateActive)
+        
+    {
+        // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
+        
+        
+        // TODO: MAKE IT PILL OR PERIOD NOTIFICATION :P
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification" message:@"Hello example App" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alertView show];
+        
+    }
+    
+}
+
+
 @end

@@ -29,4 +29,6 @@
 + (void)setStartPeriodAlarm:(NSInteger)day hour:(NSInteger)hour;
 + (void)removeStartPeriodAlarm;
 
++ (NSData *)createLocalNotificationForDate:(NSDate *)date withText:(NSString *)text AndRepeating:(BOOL)repeating;
+
 @end
