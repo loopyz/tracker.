@@ -10,5 +10,5 @@
 
 @interface FertilizationView : UIView
 
-- (void)refreshView:(NSDictionary *)fertility;
+- (void)refreshView:(NSMutableDictionary *)fertility;
 @end

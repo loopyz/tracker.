@@ -90,20 +90,67 @@
     return ((startDate != nil) && ([self daysBetween:startDate and:[NSDate date]] > kTRMaxPeriodDuration));
 }
 
-+ (NSDictionary *)computeFertility
++ (NSMutableDictionary *)computeFertility
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *fertility = @{@"state":@0, @"caption":@"N/A"};
+    NSMutableDictionary *fertility = [[NSMutableDictionary alloc] initWithObjects:@[@0, @"N/A"] forKeys:@[@"state", @"caption"]];
     NSDate *todayDate = [NSDate date];
     NSInteger sumPastNumPeriods = [defaults integerForKey:kTRNumPeriodsKey];
     
-    if (sumPastNumPeriods <= 0) { // first time using app
+    if (sumPastNumPeriods <= 0) { // first time using app with or without hitting start yet
         return fertility;
-    } else {
-        [fertility setValue:@1 forKeyPath:@"state"];
-        [fertility setValue:[self createDateStr:todayDate and:todayDate] forKeyPath:@"caption"];
+    }
+    
+    // we definitely have atleast expected nextperiod information here
+    NSDate *startDate = [defaults objectForKey:kTRCurrentPeriodStartDateKey];
+    NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
+    NSDate *endDate = [defaults objectForKey:kTRPreviousPeriodEndDateKey];
+    NSInteger duration = [defaults integerForKey:kTRNextPeriodDurationKey];
+    NSDate *startCycleDate = startDate;
+    NSDate *endCycleDate = todayDate;
+    NSInteger cycleLoc = 1;
+    
+    // numbers
+    NSNumber *less = [NSNumber numberWithInt:1];
+    NSNumber *middle = [NSNumber numberWithInt:2];
+    NSNumber *more = [NSNumber numberWithInt:3];
+    
+    if (startDate == nil) { // if period hasn't started yet, get previous start date
+        if ((nextDate == nil) || (endDate == nil)) { // check if next period data should be there
+            return fertility;
+        }
+        // if next then, back calculate previous startDate
+        startDate = [endDate dateByAddingTimeInterval:-duration*kTRDefaultDayTimeInterval];
+        
     }
 
+    cycleLoc = [self daysBetween:startDate and:todayDate];
+    if (cycleLoc >= 1 && cycleLoc <= 7) {
+        [fertility setObject:less forKey:@"state"];
+        startCycleDate = startDate;
+        endCycleDate = [startDate dateByAddingTimeInterval:6*kTRDefaultDayTimeInterval];
+    } else if (cycleLoc >= 8 && cycleLoc <= 10) {
+        [fertility setObject:middle forKey:@"state"];
+        startCycleDate = [startDate dateByAddingTimeInterval:7*kTRDefaultDayTimeInterval];
+        endCycleDate = [startDate dateByAddingTimeInterval:9*kTRDefaultDayTimeInterval];
+    } else if (cycleLoc >= 11 && cycleLoc <= 14) {
+        [fertility setObject:more forKey:@"state"];
+        startCycleDate = [startDate dateByAddingTimeInterval:10*kTRDefaultDayTimeInterval];
+        endCycleDate = [startDate dateByAddingTimeInterval:13*kTRDefaultDayTimeInterval];
+    } else if (cycleLoc >= 15 && cycleLoc <= 21) {
+        [fertility setObject:middle forKey:@"state"];
+        startCycleDate = [startDate dateByAddingTimeInterval:14*kTRDefaultDayTimeInterval];
+        endCycleDate = [startDate dateByAddingTimeInterval:20*kTRDefaultDayTimeInterval];
+    } else if ((cycleLoc >= 22) && (nextDate != nil)) {
+        [fertility setObject:less forKey:@"state"];
+        startCycleDate = [startDate dateByAddingTimeInterval:21*kTRDefaultDayTimeInterval];
+        endCycleDate = nextDate;
+    } else {
+        return fertility; // failure case
+    }
+   
+    [fertility setObject:[self createDateStr:startCycleDate and:endCycleDate] forKey:@"caption"];
+    
     return fertility;
 }
 

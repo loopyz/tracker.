@@ -30,13 +30,13 @@
     return self;
 }
 
-- (void)refreshView:(NSDictionary *)fertility
+- (void)refreshView:(NSMutableDictionary *)fertility
 {
-    NSUInteger fertilizationChance = (NSUInteger)[fertility objectForKey:@"state"];
+    NSNumber *fertilizationState = [fertility objectForKey:@"state"];
     NSString *caption = [fertility objectForKey:@"caption"];
 
-    [self setupBackgroundColor:fertilizationChance];
-    [self setupStatus:fertilizationChance andCaption:caption];
+    [self setupBackgroundColor:[fertilizationState intValue]];
+    [self setupStatus:[fertilizationState intValue] andCaption:caption];
 }
 
 - (void)setupIcon
@@ -47,7 +47,7 @@
 
 }
 
-- (void)setupBackgroundColor:(NSUInteger)fertilizationChance
+- (void)setupBackgroundColor:(int)fertilizationChance
 {
     switch (fertilizationChance) {
         case 1:
@@ -81,7 +81,7 @@
     [self addSubview:dateLabel];
 }
 
-- (void)setupStatus:(NSUInteger)fertilizationChance andCaption:(NSString *)caption
+- (void)setupStatus:(int)fertilizationChance andCaption:(NSString *)caption
 {
     switch (fertilizationChance) {
         case 1:

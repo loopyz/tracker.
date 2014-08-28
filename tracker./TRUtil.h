@@ -13,7 +13,7 @@
 + (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 + (BOOL)shouldAutoEndPeriod;
-+ (NSDictionary *)computeFertility;
++ (NSMutableDictionary *)computeFertility;
 
 + (void)resetDefaults;
 
