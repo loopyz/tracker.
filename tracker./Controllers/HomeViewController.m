@@ -55,6 +55,7 @@ static const int cellHeight = 68;
         [self setupFertilizationView];
         [self setupLastMonthViews];
         [self setupTodaysViews];
+        [self setupTags];
         
         // autoend period if neccessary
         if ([TRUtil shouldAutoEndPeriod]) {
@@ -68,6 +69,19 @@ static const int cellHeight = 68;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return self;
+}
+
+- (void)setupTags
+{
+    statusView.tag = 1;
+    timeLeftView.tag = 1;
+    lastMonthPainView.tag = 1;
+    lastMonthFlowView.tag = 1;
+    fertilizationView.tag = 1;
+    todayPainView.tag = 1;
+    todayFlowView.tag = 1;
+//    setTodaysFlowView.tag = 1;
+//    setTodaysPainView.tag = 1;
 }
 
 - (void)initNavBar
