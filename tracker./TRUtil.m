@@ -38,11 +38,11 @@
     [localNotif setFireDate:date];
     [localNotif setAlertBody:text];
     [localNotif setHasAction:NO];
-    
+
     if (repeating) {
         [localNotif setRepeatInterval:NSDayCalendarUnit];
     }
-    
+
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
     
     return [NSKeyedArchiver archivedDataWithRootObject:localNotif];
