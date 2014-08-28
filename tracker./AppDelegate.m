@@ -70,7 +70,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     if (application.applicationState == UIApplicationStateActive)
         
@@ -79,9 +79,17 @@
         
         
         // TODO: MAKE IT PILL OR PERIOD NOTIFICATION :P
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification" message:@"Hello example App" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString *alertBody = [notification alertBody];
         
-        [alertView show];
+        if ([alertBody isEqualToString:kTRPillAlarmNotificationText]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Pill Alarm" message:alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            
+            [alertView show];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Starting Period Alarm" message:alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            
+            [alertView show];
+        }
         
     }
     
