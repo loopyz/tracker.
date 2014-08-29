@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>59FF0898-7C97-4E52-BB73-40D786A4CE3A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tracker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</key>
+		<string>https://github.com/loopyz/tracker..git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>prod/tracker/tracker.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/loopyz/tracker..git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tracker.</string>
+		</dict>
+	</array>
+</dict>
+</plist>
