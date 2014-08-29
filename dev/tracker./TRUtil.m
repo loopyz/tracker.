@@ -85,6 +85,7 @@
         [localNotif setRepeatInterval:NSDayCalendarUnit];
     }
     
+    [localNotif setSoundName:UILocalNotificationDefaultSoundName];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
     
     return [NSKeyedArchiver archivedDataWithRootObject:localNotif];

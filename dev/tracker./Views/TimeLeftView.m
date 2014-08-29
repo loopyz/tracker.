@@ -79,7 +79,11 @@
 - (void)setupDaysLeftTillEnd:(NSUInteger)daysLeft
 {
     self.daysLeft = daysLeft;
-    daysLeftTillEndLabel.text = [NSString stringWithFormat:@"Estimated %d days left until end.", daysLeft];
+    if (daysLeft < 0) {
+        daysLeftTillEndLabel.text = @"Estimated days left: N/A";
+    } else {
+        daysLeftTillEndLabel.text = [NSString stringWithFormat:@"Estimated %d days left until end.", daysLeft];
+    }
     daysLeftTillEndLabel.hidden = NO;
     daysUntilPeriodLabel.hidden = YES;
     untilPeriod.hidden = YES;
