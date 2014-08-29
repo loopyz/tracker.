@@ -10,6 +10,10 @@
 
 @interface TRUtil : NSObject
 
++ (BOOL)isGreaterThanToday:(NSDate *)date;
++ (BOOL)isLessThanLastPeriodEndDay:(NSDate *)date;
+
++ (NSData *)createLocalNotificationForDate:(NSDate *)date withText:(NSString *)text AndRepeating:(BOOL)repeating;
 + (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 + (BOOL)shouldAutoEndPeriod;
@@ -28,7 +32,5 @@
 
 + (void)setStartPeriodAlarm:(NSInteger)day hour:(NSInteger)hour;
 + (void)removeStartPeriodAlarm;
-
-+ (NSData *)createLocalNotificationForDate:(NSDate *)date withText:(NSString *)text AndRepeating:(BOOL)repeating;
 
 @end

@@ -76,21 +76,9 @@
         
     {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[notification alertBody] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
-        
-        // TODO: MAKE IT PILL OR PERIOD NOTIFICATION :P
-        NSString *alertBody = [notification alertBody];
-        
-        if ([alertBody isEqualToString:kTRPillAlarmNotificationText]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Pill Alarm" message:alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            
-            [alertView show];
-        } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Starting Period Alarm" message:alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            
-            [alertView show];
-        }
-        
+        [alertView show];
     }
     
 }

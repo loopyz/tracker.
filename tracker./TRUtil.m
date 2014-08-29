@@ -31,23 +31,6 @@
     return [calendar dateFromComponents:comps];
 }
 
-+ (NSData *)createLocalNotificationForDate:(NSDate *)date withText:(NSString *)text AndRepeating:(BOOL)repeating
-{
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    [localNotif setTimeZone:[NSTimeZone defaultTimeZone]];
-    [localNotif setFireDate:date];
-    [localNotif setAlertBody:text];
-    [localNotif setHasAction:NO];
-
-    if (repeating) {
-        [localNotif setRepeatInterval:NSDayCalendarUnit];
-    }
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-    
-    return [NSKeyedArchiver archivedDataWithRootObject:localNotif];
-}
-
 + (NSString *)createDateStr:(NSDate *)dt1 and:(NSDate *)dt2
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -72,7 +55,41 @@
     return [NSString stringWithFormat:@"%@-%@", firstPart, secondPart];
 }
 
++ (BOOL)isLessThanToday:(NSDate *)date
+{
+    return ([date timeIntervalSinceDate:[NSDate date]] < 0);
+}
+
 #pragma mark - main methods
++ (BOOL)isGreaterThanToday:(NSDate *)date
+{
+    return ([date timeIntervalSinceDate:[NSDate date]] > 0);
+}
+
++ (BOOL)isLessThanLastPeriodEndDay:(NSDate *)date
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *endDate = [defaults objectForKey:kTRPreviousPeriodEndDateKey];
+    return ([date timeIntervalSinceDate:endDate] <= 0);
+}
+
++ (NSData *)createLocalNotificationForDate:(NSDate *)date withText:(NSString *)text AndRepeating:(BOOL)repeating
+{
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    [localNotif setTimeZone:[NSTimeZone defaultTimeZone]];
+    [localNotif setFireDate:date];
+    [localNotif setAlertBody:text];
+    [localNotif setHasAction:NO];
+    
+    if (repeating) {
+        [localNotif setRepeatInterval:NSDayCalendarUnit];
+    }
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+    
+    return [NSKeyedArchiver archivedDataWithRootObject:localNotif];
+}
+
 + (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2
 {
     NSUInteger unitFlags = NSDayCalendarUnit;
@@ -270,6 +287,14 @@
     NSInteger nextDuration = (periodDuration == 0) ? kTRDefaultPeriodDuration : periodDuration/numPeriods;
     NSInteger nextNoPeriodDuration = (noPeriodDuration == 0) ? kTRDefaultNoPeriodDuration : noPeriodDuration/numPeriods;
     NSDate *nextStartDate = [endDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*nextNoPeriodDuration];
+    
+    if ([self isLessThanToday:nextStartDate]) {
+        NSInteger cycles = [self daysBetween:nextStartDate and:[NSDate date]]/(nextDuration + nextNoPeriodDuration);
+        nextStartDate = [nextStartDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*cycles*(nextDuration+nextNoPeriodDuration)];
+        if ([self isLessThanToday:nextStartDate]) {
+            nextStartDate = [nextStartDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*(nextDuration+nextNoPeriodDuration)];
+        }
+    }
 
     [defaults setObject:nextStartDate forKey:kTRNextPeriodStartDateKey];
     [defaults setInteger:nextDuration forKey:kTRNextPeriodDurationKey];

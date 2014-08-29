@@ -38,7 +38,17 @@
 }
 
 - (IBAction)dateButtonTapped:(id)sender {
-    [self.delegate dateDayTapped:self];
+    if ([TRUtil isGreaterThanToday:self.date]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Can't select a future date" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alertView show];
+    } else if ([TRUtil isLessThanLastPeriodEndDay:self.date]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Can't select a date before your most recently recorded period." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alertView show];
+    } else {
+        [self.delegate dateDayTapped:self];
+    }
 }
 
 -(void)setSelected:(BOOL)selected{
