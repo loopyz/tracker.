@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Lucy Guo on 8/26/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import "TRSettingsObject.h"
@@ -16,7 +16,5 @@
     TRSettingsObject *settingsObject = [[TRSettingsObject alloc] init];
     return settingsObject;
 }
-
-
 
 @end

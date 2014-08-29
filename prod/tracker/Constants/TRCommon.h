@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Niveditha Jayasekar on 8/25/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -51,11 +51,12 @@ extern NSString *const kTRNextPeriodDurationKey;
 extern NSString *const kTRPillAlarmToggleKey;
 extern NSString *const kTRPillAlarmDataKey;
 extern NSString *const kTRPillAlarmHourKey;
+extern NSString *const kTRPillAlarmMinuteKey;
 extern NSString *const kTRPillAlarmNotificationText;
 
 extern NSString *const kTRStartPeriodAlarmToggleKey;
 extern NSString *const kTRStartPeriodAlarmDataKey;
-extern NSString *const kTRStartPeriodAlarmHourKey;
+extern NSString *const kTRStartPeriodAlarmDaysBeforeKey;
 extern NSString *const kTRStartPeriodAlarmNotificationText;
 
 @end

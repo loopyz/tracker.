@@ -258,7 +258,7 @@
 		F0338F7B19B10E0A00CCC92A /* THDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THDatePickerViewController.h; sourceTree = "<group>"; };
 		F0338F7C19B10E0A00CCC92A /* THDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THDatePickerViewController.m; sourceTree = "<group>"; };
 		F0338F7D19B10E0A00CCC92A /* THDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = THDatePickerViewController.xib; sourceTree = "<group>"; };
-		F0338F7E19B10E0A00CCC92A /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
+		F0338F7E19B10E0A00CCC92A /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+KNSemiModal.h"; path = "../UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
 		F0338F7F19B10E0A00CCC92A /* UIViewController+KNSemiModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KNSemiModal.m"; sourceTree = "<group>"; };
 		F0338F8219B10E0A00CCC92A /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
 		F0338F8319B10E0A00CCC92A /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
@@ -460,7 +460,6 @@
 				F0338F5E19B10E0A00CCC92A /* KLCPopup.h */,
 				F0338F5F19B10E0A00CCC92A /* KLCPopup.m */,
 				F0338F6019B10E0A00CCC92A /* THCalendarDatePicker */,
-				F0338F7E19B10E0A00CCC92A /* UIViewController+KNSemiModal.h */,
 				F0338F7F19B10E0A00CCC92A /* UIViewController+KNSemiModal.m */,
 				F0338F8019B10E0A00CCC92A /* Vendor */,
 			);
@@ -490,6 +489,7 @@
 				F0338F5319B10E0A00CCC92A /* FKTitleHeaderViewProtocol.h */,
 				F0338F5419B10E0A00CCC92A /* FormKit.h */,
 				F0338F5519B10E0A00CCC92A /* NSObject+FKFormAttributeMapping.h */,
+				F0338F7E19B10E0A00CCC92A /* UIViewController+KNSemiModal.h */,
 				F0338F5619B10E0A00CCC92A /* NSObject+FKFormAttributeMapping.m */,
 				F0338F5719B10E0A00CCC92A /* UITableViewCell+FormKit.h */,
 				F0338F5819B10E0A00CCC92A /* UITableViewCell+FormKit.m */,

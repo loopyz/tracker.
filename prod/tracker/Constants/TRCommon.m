@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Niveditha Jayasekar on 8/25/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import "TRCommon.h"
@@ -51,11 +51,12 @@ NSString *const kTRNextPeriodDurationKey = @"nextPeriodDuration";
 NSString *const kTRPillAlarmToggleKey = @"pillAlarmToggle";
 NSString *const kTRPillAlarmDataKey = @"pillAlarmData";
 NSString *const kTRPillAlarmHourKey = @"pillAlarmHour";
-NSString *const kTRPillAlarmNotificationText = @"Don't forget to take your daily birth pill! - Tracker.";
+NSString *const kTRPillAlarmMinuteKey = @"pillAlarmMinute";
+NSString *const kTRPillAlarmNotificationText = @"Don't forget to take your daily birth pill!";
 
 NSString *const kTRStartPeriodAlarmToggleKey = @"startPeriodAlarmToggle";
 NSString *const kTRStartPeriodAlarmDataKey = @"startPeriodAlarmData";
-NSString *const kTRStartPeriodAlarmHourKey = @"startPeriodAlarmHour";
-NSString *const kTRStartPeriodAlarmNotificationText = @"Has your period started yet? Check in with Tracker.";
+NSString *const kTRStartPeriodAlarmDaysBeforeKey = @"startPeriodAlarmDay";
+NSString *const kTRStartPeriodAlarmNotificationText = @"Your period is supposed to start in ";
 
 @end

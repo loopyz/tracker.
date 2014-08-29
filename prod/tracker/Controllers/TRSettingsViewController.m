@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Lucy Guo on 8/25/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import "TRSettingsViewController.h"
@@ -42,6 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // form model
     self.formModel = [FKFormModel formTableModelForTableView:self.tableView
                                         navigationController:self.navigationController];
     
@@ -70,6 +72,7 @@
                         attributeMapping:^(FKFormAttributeMapping *mapping) {
                             
                             mapping.dateFormat = @"hh:mm a";
+                            
                         }];
 
                 
@@ -79,20 +82,7 @@
         [formMapping mapAttribute:@"numDaysBeforePeriodNotif" title:@"Days before Notification" type:FKFormAttributeMappingTypeInteger];
 
         
-        [formMapping sectionWithTitle:@"More Options" footer:@"hello" identifier:@"customCells"];
-        
-//        [formMapping mapCustomCell:[FKDisclosureIndicatorAccessoryField class]
-//                        identifier:@"custom"
-//                         rowHeight:70
-//                         blockData:@(1)
-//              willDisplayCellBlock:^(UITableViewCell *cell, id object, NSIndexPath *indexPath, id blockData) {
-//                  cell.textLabel.text = [NSString stringWithFormat:@"I am a custom cell ! With blockData %@", [blockData description]];
-//                  cell.textLabel.numberOfLines = 0;
-//                  
-//              }     didSelectBlock:^(UITableViewCell *cell, id object, NSIndexPath *indexPath, id blockData) {
-//                  NSLog(@"You pressed me");
-//                  
-//              }];
+        [formMapping sectionWithTitle:@" " footer:@"hello" identifier:@"customCells"];
         
         [formMapping mapCustomCell:[UITableViewCell class]
                         identifier:@"savecell"
@@ -102,7 +92,7 @@
               }     didSelectBlock:^(UITableViewCell *cell, id object, NSIndexPath *indexPath) {
                   NSLog(@"You pressed me");
                   [self.formModel save];
-                  
+                  [self saveSettings];
               }];
         
         
@@ -113,37 +103,9 @@
                   cell.textLabel.text = @"Clear Data";
                   
               }     didSelectBlock:^(UITableViewCell *cell, id object, NSIndexPath *indexPath) {
-                  NSLog(@"You pressed me again");
-                  // TODO: DO CLEAR DATA HERE
-                  
+                  // double check if you really want to clear data
+                  [[[UIAlertView alloc] initWithTitle:@"Clear Data" message:@"Are you sure you want to delete all your data?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil] show];
               }];
-        
-
-        
-//        [formMapping sectionWithTitle:@"Buttons" identifier:@"saveButton"];
-//        
-//        [formMapping buttonSave:@"Save" handler:^{
-//            NSLog(@"save pressed");
-//            NSLog(@"%@", self.settingsObject);
-//            [self.formModel save];
-//        }];
-//        
-//        [formMapping validationForAttribute:@"custom" validBlock:^BOOL(id value, id object) {
-//            return NO;
-//        } errorMessageBlock:^NSString *(id value, id object) {
-//            return @"Error";
-//        }];
-//        
-//        [formMapping validationForAttribute:@"title" validBlock:^BOOL(NSString *value, id object) {
-//            return value.length < 10;
-//            
-//        } errorMessageBlock:^NSString *(id value, id object) {
-//            return @"Text is too long.";
-//        }];
-//        
-//        [formMapping validationForAttribute:@"releaseDate" validBlock:^BOOL(id value, id object) {
-//            return NO;
-//        }];
         
         [self.formModel registerMapping:formMapping];
     }];
@@ -152,7 +114,7 @@
         NSLog(@"did change model value");
     }];
     
-    [self.formModel loadFieldsWithObject:settingsObject];
+    [self updateSettings];
     
 }
 
@@ -167,17 +129,15 @@
 //the methods escalate through the responder chain until
 //they reach the AppDelegate
 
-- (void)saveSettings:(UITableViewCell<FXFormFieldCell> *)cell
+- (void)saveSettings
 {
-    //we can lookup the form from the cell if we want, like this:
-    TRSettingsForm *form = cell.field.form;
-    
-    // todo: update with real form values
-    BOOL togglePillAlarm = (form.pillNotif == PillNotificationsOn);
-    BOOL toggleStartPeriodAlarm = (form.periodNotif == PeriodNotificationsOn);
-    NSInteger hour = 9;
-    NSInteger minute = 0;
-    NSInteger daysBefore = form.daysBefore;
+    BOOL togglePillAlarm = [self.settingsObject.pillNotifOn boolValue];
+    BOOL toggleStartPeriodAlarm = [self.settingsObject.periodNotifOn boolValue];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.settingsObject.pillNotifDate];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger daysBefore = [self.settingsObject.numDaysBeforePeriodNotif integerValue];
     
     if (togglePillAlarm) {
         [TRUtil setPillAlarm:hour minute:minute];
@@ -190,16 +150,45 @@
     } else {
         [TRUtil removeStartPeriodAlarm];
     }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Saved Settings!" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+
+    [self updateSettings];
 }
 
 - (void)clearData
 {
    // clear all data here
     [TRUtil resetDefaults];
+    [self updateSettings];
 }
 
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == [alertView cancelButtonIndex]){
+        //cancel clicked ...do nothing
+    }else{
+        // clearing data
+        [self clearData];
+        
+    }
+}
 
+- (void)updateSettings
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *pillNotifOn = [NSNumber numberWithInteger:[defaults integerForKey:kTRPillAlarmToggleKey]];
+    NSNumber *startPeriodNotifOn = [NSNumber numberWithInteger:[defaults integerForKey:kTRStartPeriodAlarmToggleKey]];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.settingsObject.pillNotifDate];
+    [components setHour:[defaults integerForKey:kTRPillAlarmHourKey]];
+    [components setMinute:[defaults integerForKey:kTRPillAlarmMinuteKey]];
+    NSDate *pillNotifDate = [calendar dateFromComponents:components];
+    NSNumber *daysBefore = [NSNumber numberWithInteger:[defaults integerForKey:kTRStartPeriodAlarmDaysBeforeKey]];
+    
+    self.settingsObject.pillNotifOn = pillNotifOn;
+    self.settingsObject.periodNotifOn = startPeriodNotifOn;
+    self.settingsObject.pillNotifDate = pillNotifDate;
+    self.settingsObject.numDaysBeforePeriodNotif = daysBefore;
+    [self.formModel loadFieldsWithObject:self.settingsObject];
+}
 
 @end

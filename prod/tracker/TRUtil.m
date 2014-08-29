@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Niveditha Jayasekar on 8/25/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import "TRUtil.h"
@@ -211,8 +211,8 @@
     [defaults setBool:NO forKey:kTRStartPeriodAlarmToggleKey];
     [defaults setBool:NO forKey:kTRPillAlarmToggleKey];
     
-    // reset alarm times to 9am
-    [defaults setInteger:9 forKey:kTRStartPeriodAlarmHourKey];
+    // reset alarm times to default times
+    [defaults setInteger:0 forKey:kTRStartPeriodAlarmDaysBeforeKey];
     [defaults setInteger:9 forKey:kTRPillAlarmHourKey];
     
     [defaults synchronize];
@@ -286,7 +286,7 @@
     [defaults removeObjectForKey:kTRStartPeriodAlarmDataKey];
     
     // predict next period
-    NSInteger startPeriodAlarmHour = [defaults integerForKey:kTRStartPeriodAlarmHourKey];
+    NSInteger startPeriodAlarmDaysBefore = [defaults integerForKey:kTRStartPeriodAlarmDaysBeforeKey];
     NSInteger nextDuration = (periodDuration == 0) ? kTRDefaultPeriodDuration : periodDuration/numPeriods;
     NSInteger nextNoPeriodDuration = (noPeriodDuration == 0) ? kTRDefaultNoPeriodDuration : noPeriodDuration/numPeriods;
     NSDate *nextStartDate = [endDate dateByAddingTimeInterval:kTRDefaultDayTimeInterval*nextNoPeriodDuration];
@@ -301,15 +301,12 @@
 
     [defaults setObject:nextStartDate forKey:kTRNextPeriodStartDateKey];
     [defaults setInteger:nextDuration forKey:kTRNextPeriodDurationKey];
-    
+    [defaults synchronize];
     // create starting period alert if starting period alarm is toggled on
     BOOL startPeriodAlarmToggle = [defaults boolForKey:kTRStartPeriodAlarmToggleKey];
     if (startPeriodAlarmToggle) {
-        NSDate *fireDate = [self convertDate:nextStartDate withHours:startPeriodAlarmHour];
-        startPeriodAlarmData = [self createLocalNotificationForDate:fireDate withText:kTRStartPeriodAlarmNotificationText AndRepeating:NO];
-        [defaults setObject:startPeriodAlarmData forKey:kTRStartPeriodAlarmDataKey];
+        [self setStartPeriodAlarm:startPeriodAlarmDaysBefore hour:kTRDefaultAlertHour];
     }
-    [defaults synchronize];
 }
 
 + (void)setCurrentPeriodFlow:(NSString *)flow
@@ -355,7 +352,8 @@
     NSDate *fireDate = [calendar dateFromComponents:components];
     
     // create local notification
-    pillAlarmData = [self createLocalNotificationForDate:fireDate withText:kTRPillAlarmNotificationText AndRepeating:YES];
+    NSString *alarmText = [NSString stringWithFormat:@"%@ - Tracker.", kTRPillAlarmNotificationText];
+    pillAlarmData = [self createLocalNotificationForDate:fireDate withText:alarmText AndRepeating:YES];
     [defaults setObject:pillAlarmData forKey:kTRPillAlarmDataKey];
     
     [defaults synchronize];
@@ -379,29 +377,30 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setBool:YES forKey:kTRPillAlarmToggleKey];
-    [defaults setInteger:hour forKey:kTRPillAlarmHourKey];
-    
+    [defaults setBool:YES forKey:kTRStartPeriodAlarmToggleKey];
+    [defaults setInteger:day forKey:kTRStartPeriodAlarmDaysBeforeKey];
     // remove old local notification
     NSData *startPeriodAlarmData = [defaults objectForKey:kTRStartPeriodAlarmDataKey];
     [self removeLocalNotificationFromData:startPeriodAlarmData];
     
     // create fire date
     NSDate *nextDate = [defaults objectForKey:kTRNextPeriodStartDateKey];
-    NSDate *priorXTimeDate = [nextDate dateByAddingTimeInterval:-day*kTRDefaultDayTimeInterval];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
-    [calendar setTimeZone:timeZone];
-    
-    NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit fromDate:priorXTimeDate];
-    [components setHour:hour];
-    
-    NSDate *fireDate = [calendar dateFromComponents:components];
-    
-    // create local notification
-    startPeriodAlarmData = [self createLocalNotificationForDate:fireDate withText:kTRStartPeriodAlarmNotificationText AndRepeating:YES];
-    [defaults setObject:startPeriodAlarmData forKey:kTRStartPeriodAlarmDataKey];
-    
+    if (nextDate != nil) {
+        NSDate *priorXTimeDate = [nextDate dateByAddingTimeInterval:-day*kTRDefaultDayTimeInterval];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
+        [calendar setTimeZone:timeZone];
+        
+        NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit fromDate:priorXTimeDate];
+        [components setHour:hour];
+        
+        NSDate *fireDate = [calendar dateFromComponents:components];
+        
+        // create local notification
+        NSString *alarmText = [NSString stringWithFormat:@"%@ %d days - Tracker.", kTRStartPeriodAlarmNotificationText, day];
+        startPeriodAlarmData = [self createLocalNotificationForDate:fireDate withText:alarmText AndRepeating:YES];
+        [defaults setObject:startPeriodAlarmData forKey:kTRStartPeriodAlarmDataKey];
+    }
     [defaults synchronize];
 }
 

@@ -3,7 +3,7 @@
 //  tracker.
 //
 //  Created by Lucy Guo on 8/25/14.
-//  Copyright (c) 2014 Lucy Guo. All rights reserved.
+//  Copyright (c) 2014 Ludo Labs, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,7 +13,7 @@
 @class FKFormModel;
 
 //@interface SettingsViewController : FXFormViewController
-@interface TRSettingsViewController : UITableViewController
+@interface TRSettingsViewController : UITableViewController<UIAlertViewDelegate>
 
 @property (nonatomic, strong) FKFormModel *formModel;
 @property (nonatomic, strong) TRSettingsObject *settingsObject;
