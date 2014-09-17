@@ -10,29 +10,29 @@
 	<string>tracker</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</key>
+		<key>6970C2EE9CDFD39B9A01FAD887EE51B21F0622C9</key>
 		<string>https://github.com/loopyz/tracker..git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>prod/tracker/tracker.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</key>
+		<key>6970C2EE9CDFD39B9A01FAD887EE51B21F0622C9</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/loopyz/tracker..git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</string>
+	<string>6970C2EE9CDFD39B9A01FAD887EE51B21F0622C9</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>ED6FD58F-47E3-4137-ACF4-F9CE03B38B62</string>
+			<string>6970C2EE9CDFD39B9A01FAD887EE51B21F0622C9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>tracker.</string>
 		</dict>
